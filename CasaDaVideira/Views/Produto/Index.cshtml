@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CasaDaVideira.Model.Database.Model.Produto>
+@using Mvc.Model.Utils
+@{
+    ViewBag.Title = "Index";
+    var usuario = LoginUtils.Usuario;
+}
+
+<p>
+    @if (usuario != null && usuario.Admin)
+    {
+        @Html.ActionLink("Cadastrar", "CreateProduto")
+    }    
+</p>
+<table class="table">
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.Nome)</th>
+        <th>@Html.DisplayNameFor(model => model.DescricaoResumida)</th>
+        <th> @Html.DisplayNameFor(model => model.Preco)</th>
+        <th>@Html.DisplayNameFor(model => model.Qtd)</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+        <td>@Html.DisplayFor(modelItem => item.DescricaoResumida)</td>
+        <td>@Html.DisplayFor(modelItem => item.Preco)</td>
+        <td>@Html.DisplayFor(modelItem => item.Qtd)</td>
+@if (usuario != null && usuario.Admin)
+{
+        <td>
+            @Html.ActionLink("Editar", "EditProduto", new { idProduto = item.IdProduto }) |
+            @Html.ActionLink("Apagar", "DeleteProduto", new { idProduto = item.IdProduto })
+        </td>
+}
+    </tr>
+}
+
+</table>

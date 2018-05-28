@@ -1,0 +1,27 @@
+﻿@model IEnumerable<CasaDaVideira.Model.Database.Model.Categoria>
+@using Mvc.Model.Utils
+@{
+    var usuario = LoginUtils.Usuario;
+}
+
+
+    <p>
+        @Html.ActionLink("Create New", "CreateCategoria")
+    </p>
+    <table class="table">
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            @if (usuario != null && usuario.Admin)
+            {
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdCategoria }) |
+                    @Html.ActionLink("Apagar", "Delete", new { id = item.IdCategoria })
+                </td>
+            }
+        </tr>
+    }
+    
+    </table>
