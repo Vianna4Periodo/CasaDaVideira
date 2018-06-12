@@ -13,6 +13,12 @@ namespace CasaDaVideira.Model.Database.Model
 
         public Imagem()
         {
+
+        }
+
+        public Imagem(Produto produto)
+        {
+            this.Produto = produto;
             this.DataInclusao = DateTime.Now;
         }
 

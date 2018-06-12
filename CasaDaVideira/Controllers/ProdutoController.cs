@@ -1,5 +1,6 @@
 ﻿using CasaDaVideira.Model.Database;
 using CasaDaVideira.Model.Database.Model;
+using Mvc.Model.Utils;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -18,8 +19,15 @@ namespace CasaDaVideira.Controllers
 
         public ActionResult CreateProduto()
         {
-            var prod = new Produto();
-            return View(prod);
+            if (LoginUtils.Usuario !=null) {
+                if (LoginUtils.Usuario.Admin)
+                {
+                    var prod = new Produto();
+                    return View(prod);
+                }
+            }
+            return RedirectToAction("Index", "Home");
+            
         }
 
         public ActionResult EditProduto(Guid idProduto)
@@ -55,6 +63,13 @@ namespace CasaDaVideira.Controllers
             //return View("Telefones");
             return RedirectToAction("Index");
 
+        }
+
+        public ActionResult AddImagem(Guid idProduto)
+        {
+            Produto produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
+            var imagem = new Imagem(produto);
+            return View("AddImagem", "_Layout", imagem);
         }
 
         public ActionResult BuscarProduto(string buscaP)

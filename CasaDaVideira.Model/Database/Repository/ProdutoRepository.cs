@@ -15,10 +15,10 @@ namespace CasaDaVideira.Model.Database.Repository
         {
 
         }
-        public Produto FirstProduto(Guid idProduto)
-        {
-            var produto = this.Session.Query<Produto>().FirstOrDefault(f => f.IdProduto == idProduto);
 
+        public Produto FindFirstById(Guid idProduto)
+        {
+            var produto = this.Session.Query<Produto>().First(f => f.IdProduto == idProduto);
             return produto;
         }
     }

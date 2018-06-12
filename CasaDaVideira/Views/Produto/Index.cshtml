@@ -29,8 +29,18 @@
 @if (usuario != null && usuario.Admin)
 {
         <td>
-            @Html.ActionLink("Editar", "EditProduto", new { idProduto = item.IdProduto }) |
-            @Html.ActionLink("Apagar", "DeleteProduto", new { idProduto = item.IdProduto })
+            @Html.ActionLink("Editar", "EditProduto", new { idProduto = item.IdProduto }, new { @class = "btn btn-info" })|
+            @Html.ActionLink("Apagar", "DeleteProduto", new { idProduto = item.IdProduto }, new { @class = "btn btn-danger" }) |
+
+            <a data-ajax="true"
+               data-ajax-loading="#loadAjax"
+               data-ajax-method="post"
+               data-ajax-mode="replace"
+               data-ajax-success="exibirDlgSaidaEstadia"
+               data-ajax-update="#telaSaida"
+               href="@Url.Action("AddImagem", "Produto", new { idProduto = item.IdProduto, info = true})"
+               class="btn btn-success">Adicionar Imagem
+            </a>
         </td>
 }
     </tr>
