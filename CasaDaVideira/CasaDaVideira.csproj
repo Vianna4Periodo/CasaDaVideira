@@ -140,6 +140,8 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\skdslider.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -154,6 +156,8 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Config\DbConfig.ini" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.11.1.intellisense.js" />
     <Content Include="Icon.png" />
     <Content Include="images\1.png" />
@@ -261,6 +265,8 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\responsiveslides.min.js" />
     <Content Include="Scripts\skdslider.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Usuario\CreateUser.cshtml" />
     <Content Include="Views\Usuario\DetailsUser.cshtml" />
@@ -294,19 +300,17 @@
     <Content Include="Views\Produto\Index.cshtml" />
     <Content Include="Scripts\jquery-1.11.1.min.map" />
     <Content Include="Scripts\minicart.min.js" />
-    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
-    <Content Include="Views\Shared\_LoginMenu.cshtml" />
-    <Content Include="Views\Shared\_StoreMenu.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Categoria\Index.cshtml" />
     <Content Include="Views\Categoria\CreateCategoria.cshtml" />
     <Content Include="Views\Produto\EditProduto.cshtml" />
-    <Content Include="Views\Home\Configuracoes.cshtml" />
-    <Content Include="Views\Shared\_Carrossel.cshtml" />
-    <Content Include="Views\Shared\_TopBrands.cshtml" />
-    <Content Include="Views\Shared\_LargerCarrossel.cshtml" />
     <Content Include="Views\Produto\AddImagem.cshtml" />
+    <Content Include="Views\Home\_Login.cshtml" />
+    <Content Include="Views\Home\_Configuracoes.cshtml" />
+    <Content Include="Views\Home\_IndexContent.cshtml" />
+    <Content Include="Views\Shared\_LoginMenu.cshtml" />
+    <Content Include="Views\Shared\_StoreMenu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
