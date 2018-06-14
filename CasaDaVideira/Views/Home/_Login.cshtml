@@ -1,0 +1,94 @@
+﻿@model CasaDaVideira.Model.Database.Model.Usuario
+@using System.ComponentModel.DataAnnotations
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div id="dlgNovaEstadia" role="dialog" class="modal fade">
+    <div class="login">
+        <div class="container">
+            @using (Ajax.BeginForm("FazerLogin", "Usuario", new AjaxOptions()
+            {
+                HttpMethod = "POst",
+                OnSuccess = "fecharNovaEstadia",
+                OnFailure = "falharNovaEstadia",
+                LoadingElementId = "loadAjax",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "tblEstadias"
+            }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Entrada</h4>
+                            @if (!ViewBag.ExisteAdmin)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    Insira as credenciais para cadastrar o primeiro administrador!<br />
+                                    Não será possível logar nenhum usuário sem um administrador cadastrado.
+                                </div>
+                            }
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+                                @if (ViewBag.ExisteAdmin)
+                                {
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = ViewBag.ExisteAdmin ? "Email" : "Chave do sistema" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                    @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha", @type = "password" } })
+                                    @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+
+                                    <div class="forgot">
+                                        <a href="#">Esqueceu sua senha?</a>
+                                    </div>
+
+                                    <h4>Não tem login?</h4>
+                                    <p>
+                                        @Html.ActionLink("Crie seu cadastro!", "CreateUser", "Usuario") Ou volte para
+                                        @Html.ActionLink("página inicial", "Login", "Home")
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                        <div class="modal-footer form-horizontal">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"> Cancelar </button>
+                            @{
+                                var valor = ViewBag.ExisteAdmin ? "Entrar" : "Cadastrar primeiro administrador";
+                            }
+                            <input type="submit" value=@valor>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<!-- login -->
+
+<h2>Login</h2>
+
+
+
+
+@using (Html.BeginForm(, FormMethod.Post))
+{
+
+}
+    </div>
+
+</div>
+</div>
+<!-- //login -->

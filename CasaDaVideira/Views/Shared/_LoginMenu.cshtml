@@ -25,15 +25,15 @@ else
                         <li>@Html.ActionLink("Editar Cadastro", "DetailsUser", "Usuario")</li>
                         <li>@Html.ActionLink("Sair", "Deslogar", "Usuario")</li>
                         @*<li><a href="groceries.html">Cashews</a></li>
-                        <li><a href="groceries.html">Dry Fruit</a></li>
-                        <li><a href="groceries.html"> Mukhwas </a></li>
-                        <li><a href="groceries.html">Rice & Rice Products</a></li>*@
+                            <li><a href="groceries.html">Dry Fruit</a></li>
+                            <li><a href="groceries.html"> Mukhwas </a></li>
+                            <li><a href="groceries.html">Rice & Rice Products</a></li>*@
                         @if (!LoginUtils.Usuario.Admin)
                         {
                             <li><p>Você possui @LoginUtils.Usuario.Pontos pontos</p></li>
                         }
                     </ul>
-                    
+
                 </div>
             </div>
         </ul>

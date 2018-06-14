@@ -8,30 +8,27 @@ namespace CasaDaVideira.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()
-        {
-            return View();
-        }
+        public ActionResult Index() => View();
 
         [AllowAnonymous]
-        public ActionResult Login()
+        public PartialViewResult Login()
         {
             var existeAdmin = DbConfig.Instance.UsuarioRepository.FindAll().Where(w => w.Admin).FirstOrDefault();
-            ViewBag.ExisteAdmin = existeAdmin == null ? false : true;
-            return View("Login", LoginUtils.Usuario);
+            ViewBag.ExisteAdmin = existeAdmin != null ? true : false;
+            return PartialView("_Login", LoginUtils.Usuario);
         }
 
         
-        public ActionResult Configuracoes()
+        public PartialViewResult Configuracoes()
         {
             if(LoginUtils.Usuario != null)
             {
                 if (LoginUtils.Usuario.Admin)
                 {
-                    return View();
+                    return PartialView("_Configuracoes");
                 }
             }
-            return RedirectToAction("Index");
+            return PartialView("_IndexContent");
         }
     }
 }
