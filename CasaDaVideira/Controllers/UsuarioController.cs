@@ -204,34 +204,32 @@ namespace CasaDaVideira.Controllers
         public ActionResult FazerLogin(string email, string senha)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
-                return RedirectToAction("Login", "Home");
-            var iniFile = IniUtils.LerArquivoIni();
-            if (email.Equals(iniFile["AdminFirstUser"]["key"]) && senha.Equals(iniFile["AdminFirstUser"]["password"]))
+                return RedirectToAction("Login", "Home");            
+            if(DbConfig.Instance.UsuarioRepository.FirstOrDefault() == null)
             {
-                //var hoje = DateTime.Now;
-                //string videira = "VIDEIRA";
-                ////A senha será composta por uma Letra maiúscula V-I-D-E-I-R-A
-                ////Esta letra será referente ao dia da semana sendo V para domingo e assim por diante
-                ////Sequencialmente teremos minutos com 2 digitos numéricos
-                ////dia
-                ////hora
-                ////mes (com um ou dois digitos)
-                ////A letra do dia anterior minúscula
-                //string password = videira[hoje.DayOfWeek.GetHashCode()].ToString();
-                //password += hoje.Minute.ToString();
-                //password += hoje.Day.ToString();
-                //password += hoje.Hour.ToString();
-                //password += hoje.Month.ToString();
-                //password += videira[hoje.AddDays(-1).DayOfWeek.GetHashCode()].ToString().ToLower();
-
-                var us = new Usuario
+                var iniFile = IniUtils.LerArquivoIni();
+                if (email.Equals(iniFile["AdminFirstUser"]["key"]) && senha.Equals(iniFile["AdminFirstUser"]["password"]))
                 {
-                    Nome = "Administrador",
-                    Email = "meu@email.com",
-                    Senha = "123123",
-                    Admin = true
-                };
-                return View("CreateUser", us);
+                    //var hoje = DateTime.Now;
+                    //string videira = "VIDEIRA";
+                    ////A senha será composta por uma Letra maiúscula V-I-D-E-I-R-A
+                    ////Esta letra será referente ao dia da semana sendo V para domingo e assim por diante
+                    ////Sequencialmente teremos minutos com 2 digitos numéricos
+                    ////dia
+                    ////hora
+                    ////mes (com um ou dois digitos)
+                    ////A letra do dia anterior minúscula
+                    //string password = videira[hoje.DayOfWeek.GetHashCode()].ToString();
+                    //password += hoje.Minute.ToString();
+                    //password += hoje.Day.ToString();
+                    //password += hoje.Hour.ToString();
+                    //password += hoje.Month.ToString();
+                    //password += videira[hoje.AddDays(-1).DayOfWeek.GetHashCode()].ToString().ToLower();
+
+                    var us = new Usuario();
+                    return View("CreateUser", us);
+                }
+                return RedirectToAction("Login", "Home");
             }
             else
             {

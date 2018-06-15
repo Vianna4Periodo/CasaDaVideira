@@ -10,9 +10,10 @@
                function hideURLbar(){ window.scrollTo(0,1); } 
     </script>
     <!-- //for-mobile-apps -->
+    
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- font-awesome icons -->
+    
     <link href="~/Content/font-awesome.css" rel="stylesheet">
     <!-- //font-awesome icons -->
     <!-- js -->
@@ -23,6 +24,7 @@
     <!-- start-smoth-scrolling -->
     <script type="text/javascript" src="~/Scripts/move-top.js"></script>
     <script type="text/javascript" src="~/Scripts/easing.js"></script>
+    
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $(".scroll").click(function (event) {
@@ -59,7 +61,7 @@
             </div>
             <div class="agile-login">
                 <ul>
-                   @Html.Partial("_LoginMenu")
+                    @Html.Partial("_LoginMenu")
                 </ul>
             </div>
             <div class="product_list_header">
@@ -77,8 +79,10 @@
         <div class="container">
             <div class="w3ls_logo_products_left1">
                 <ul class="phone_email">
-                    <li><i class="fa fa-phone" aria-hidden="true"></i><b>Venha nos conhecer</b><br/>
-                        agende sua visita : +55 (32) 9 9950 1253</li>
+                    <li>
+                        <i class="fa fa-phone" aria-hidden="true"></i><b>Venha nos conhecer</b><br />
+                        agende sua visita : +55 (32) 9 9950 1253
+                    </li>
                 </ul>
             </div>
             <div class="w3ls_logo_products_left">
@@ -130,7 +134,15 @@
         </div>
     }
     <!-- //breadcrumbs -->
+
     @RenderBody()
+
+    <div id="modaldiv">
+
+    </div>
+    <div id="loadAjax" style="display:none;">
+        <img src="~/Images/ajax-loading.gif" height="50" width="50" />
+    </div>
     <!-- //footer -->
     <div class="footer">
         <div class="container">
@@ -179,7 +191,7 @@
         <div class="footer-copy">
 
             <div class="container">
-                <p>© 2017 Casa da Videira. All rights reserved</p>
+                <p>© @DateTime.Now.Year Casa da Videira. All rights reserved</p>
             </div>
         </div>
 
@@ -208,14 +220,14 @@
     <!-- here stars scrolling icon -->
     <script type="text/javascript">
         $(document).ready(function () {
-			/*
-				var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear'
-				};
-			*/
+            /*
+                var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+                };
+            */
 
             $().UItoTop({ easingType: 'easeOutQuart' });
 
@@ -247,5 +259,6 @@
         });
     </script>
     <!-- //main slider-banner -->
+
 </body>
 </html>

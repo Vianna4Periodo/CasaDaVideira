@@ -9,16 +9,13 @@ namespace CasaDaVideira.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        public ActionResult Index()
-        {
-            return View();
-        }
+        public ActionResult Index() => View();
 
         [AllowAnonymous]
         public PartialViewResult Login()
         {
             var existeAdmin = DbConfig.Instance.UsuarioRepository.FindAll().Where(w => w.Admin).FirstOrDefault();
-            ViewBag.ExisteAdmin = existeAdmin == null ? false : true;
+            ViewBag.ExisteAdmin = existeAdmin != null ? true : false;
             return PartialView("_Login", LoginUtils.Usuario);
         }
 
