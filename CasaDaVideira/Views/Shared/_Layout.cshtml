@@ -56,6 +56,9 @@
 
 
         function loginSucesso(data) {
+           
+            var xmlString = data, parser = new DOMParser(), doc = parser.parseFromString(data, "text/html");            
+
             $("#modalLogin").modal("hide");
             $('body').removeClass('modal-open');
             $('.modal.backdrop').remove();
@@ -65,19 +68,18 @@
                 "progressBar": true,
                 "positionClass": "toast-top-center",
                 "showDuration": "300",
-                "hideDuration": "1000",
+                "hideDuration": "1500",
                 "timeOut": "5000",
                 "extendedTimeOut": "1000",
             }
 
-            var nome = data
-            var str1 = "Olá ";
-            var str2 = nome + "!";
-            var title = str1.concat(str2);
+            var elemento = doc.getElementById("nomeUsuario").innerHTML + "!";
+            var nome = elemento.split(" ");
+            var title = "Olá ".concat(nome[0]);
 
             toastr["success"]("Seja bem vindo!", title);
 
-            console.log(nome);
+            console.log(doc);
         }
 
 
