@@ -1,5 +1,6 @@
 ﻿using CasaDaVideira.Model.Database;
 using Mvc.Model.Utils;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -14,24 +15,24 @@ namespace CasaDaVideira.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Login()
+        public PartialViewResult Login()
         {
             var existeAdmin = DbConfig.Instance.UsuarioRepository.FindAll().Where(w => w.Admin).FirstOrDefault();
             ViewBag.ExisteAdmin = existeAdmin == null ? false : true;
-            return View("Login", LoginUtils.Usuario);
+            return PartialView("_Login", LoginUtils.Usuario);
         }
 
         
-        public ActionResult Configuracoes()
+        public PartialViewResult Configuracoes()
         {
             if(LoginUtils.Usuario != null)
             {
                 if (LoginUtils.Usuario.Admin)
                 {
-                    return View();
+                    return PartialView("_Configuracoes");
                 }
             }
-            return RedirectToAction("Index");
+            throw new Exception("Tentativa de fraude!");
         }
     }
 }

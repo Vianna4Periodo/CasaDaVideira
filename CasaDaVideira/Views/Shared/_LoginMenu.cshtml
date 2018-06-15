@@ -3,11 +3,31 @@
 @{
     var usuario = LoginUtils.Usuario;
 }
-
+<li><img id="loadAjax" src="~/images/gif/ajax-loader.gif" width="30" height="30" style="display:none;"/></li>
 @if (usuario == null)
 {
-    <li>@Html.ActionLink("Criar Cadastro", "CreateUser", "Usuario")</li>
-    <li>@Html.ActionLink("Login", "Login", "Home")</li>
+    <li>
+        <a data-ajax="true"
+           data-ajax-loading="#loadAjax"
+           data-ajax-method="post"
+           data-ajax-mode="replace"
+           data-ajax-success="showModalCreateUser"
+           data-ajax-update="#modaldiv"
+           href="@Url.Action("CreateUser", "Usuario")">
+            <i class="glyphicon glyphicon-user"></i> &brvbar; Criar Cadastro
+        </a>
+    </li>
+    <li>
+        <a data-ajax="true"
+           data-ajax-loading="#loadAjax"
+           data-ajax-method="post"
+           data-ajax-mode="replace"
+           data-ajax-success="showModalLogin"
+           data-ajax-update="#modaldiv"
+           href="@Url.Action("Login", "Home")">
+            <i class="glyphicon glyphicon-lock"></i> &brvbar; Login
+        </a>
+    </li>
 }
 else
 {
@@ -25,15 +45,14 @@ else
                         <li>@Html.ActionLink("Editar Cadastro", "DetailsUser", "Usuario")</li>
                         <li>@Html.ActionLink("Sair", "Deslogar", "Usuario")</li>
                         @*<li><a href="groceries.html">Cashews</a></li>
-                        <li><a href="groceries.html">Dry Fruit</a></li>
-                        <li><a href="groceries.html"> Mukhwas </a></li>
-                        <li><a href="groceries.html">Rice & Rice Products</a></li>*@
+                            <li><a href="groceries.html">Dry Fruit</a></li>
+                            <li><a href="groceries.html"> Mukhwas </a></li>
+                            <li><a href="groceries.html">Rice & Rice Products</a></li>*@
                         @if (!LoginUtils.Usuario.Admin)
                         {
                             <li><p>Você possui @LoginUtils.Usuario.Pontos pontos</p></li>
                         }
                     </ul>
-                    
                 </div>
             </div>
         </ul>

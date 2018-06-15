@@ -22,7 +22,7 @@ namespace CasaDaVideira.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult CreateUser(Boolean admin=false)
+        public PartialViewResult CreateUser(Boolean admin=false)
         {
             var user = new Usuario();
             if(LoginUtils.Usuario != null)
@@ -30,7 +30,7 @@ namespace CasaDaVideira.Controllers
                 {
                     user.Admin = admin;
                 }
-            return View(user);
+            return PartialView(user);
         }
 
         public ActionResult EditUser(Guid idUsuario)
