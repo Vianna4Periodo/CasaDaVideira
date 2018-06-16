@@ -41,7 +41,7 @@ namespace CasaDaVideira.Controllers
         {
             var prod = DbConfig.Instance.ProdutoRepository.FindAll().FirstOrDefault(f => f.IdProduto == idProduto);
 
-            DbConfig.Instance.ProdutoRepository.Excluir(prod);
+            DbConfig.Instance.ProdutoRepository.Delete(prod);
 
             return RedirectToAction("Index");
         }
@@ -56,10 +56,10 @@ namespace CasaDaVideira.Controllers
 
         public ActionResult GravarProduto(Produto prod)
         {
-            prod.Categoria = DbConfig.Instance.CategoriaRepository.FirstOrDefault();
+            prod.Categoria = DbConfig.Instance.CategoriaRepository.FindFirstOrDefault();
             prod.DescricaoCompleta = "";
             
-            DbConfig.Instance.ProdutoRepository.Salvar(prod);
+            DbConfig.Instance.ProdutoRepository.Save(prod);
             //return View("Telefones");
             return RedirectToAction("Index");
 
@@ -104,7 +104,7 @@ namespace CasaDaVideira.Controllers
 
         //public ActionResult GravarCategoria(Categoria categoria)
         //{
-        //    DbConfig.Instance.CategoriaRepository.Salvar(categoria);
+        //    DbConfig.Instance.CategoriaRepository.Save(categoria);
         //    //return View("Telefones");
         //    return RedirectToAction("Index");
         //}

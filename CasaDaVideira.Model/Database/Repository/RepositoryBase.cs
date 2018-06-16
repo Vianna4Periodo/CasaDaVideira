@@ -1,4 +1,5 @@
 ﻿using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,57 +12,157 @@ namespace CasaDaVideira.Model.Database.Repository
     //classe com tipo generico |  where T : class para garantir q é uma classe em isso pode usar qualquer coisa
     public abstract class RepositoryBase<T> where T : class
     {
-        public ISession Session = null;
+        public ISession Session;
 
         public RepositoryBase(ISession session)
         {
             this.Session = session;
         }
 
-        public T FirstOrDefault()
+        public virtual IList<T> FindAll()
+        {
+            return this.Session.CreateCriteria(typeof(T)).List<T>();
+        }
+
+        public T FindFirstById(Guid id)
+        {
+            return this.Session.CreateCriteria<T>()
+                        .Add(Restrictions.Eq("Id", id))
+                        .SetMaxResults(1)
+                        .List<T>()
+                        .FirstOrDefault();
+        }
+
+        public T FindFirstOrDefault()
         {
             return this.Session.Query<T>().FirstOrDefault();
         }
 
-        public IList<T> FindAll()
-        {
-            return Session.CreateCriteria<T>().List<T>();
-        }
-
-        public virtual T Salvar(T model)
+        public virtual T SaveOrUpdate(T entity)
         {
             try
             {
                 this.Session.Clear();
-                var transaction = this.Session.BeginTransaction();
 
-                this.Session.SaveOrUpdate(model);
+                var transacao = this.Session.BeginTransaction();
 
-                transaction.Commit();
+                this.Session.SaveOrUpdate(entity);
 
-                return model;
+                transacao.Commit();
+
+                return entity;
             }
             catch (Exception ex)
             {
-                throw new Exception("Não foi possivel salvar " + typeof(T) + "\nErro:" + ex.Message);
+                throw new Exception("Não foi possível salvar " + typeof(T) + "\nErro:" + ex.Message);
             }
         }
 
-        public virtual void Excluir(T model)
+        public virtual T Save(T entity)
         {
             try
             {
                 this.Session.Clear();
-                var transaction = this.Session.BeginTransaction();
 
-                this.Session.Delete(model);
+                var transacao = this.Session.BeginTransaction();
 
-                transaction.Commit();
+                this.Session.Save(entity);
 
+                transacao.Commit();
+
+                return entity;
             }
             catch (Exception ex)
             {
-                throw new Exception("Não foi possivel excluir " + typeof(T) + "\nErro:" + ex.Message);
+                throw new Exception("Não foi possível salvar " + typeof(T) + "\nErro:" + ex.Message);
+            }
+        }
+
+        public virtual T Update(T entity)
+        {
+            try
+            {
+                this.Session.Clear();
+
+                var transacao = this.Session.BeginTransaction();
+
+                this.Session.Update(entity);
+
+                transacao.Commit();
+
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Não foi possível editar " + typeof(T) + "\nErro:" + ex.Message);
+            }
+        }
+
+        public void Delete(T entity)
+        {
+            try
+            {
+                this.Session.Clear();
+
+                var transacao = this.Session.BeginTransaction();
+
+                this.Session.Delete(entity);
+
+                transacao.Commit();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Não foi possível excluir " + typeof(T) + "\nErro:" + ex.Message);
+            }
+        }
+
+        public void Delete(T entity, string id)
+        {
+            try
+            {
+                this.Session.CreateQuery(String.Format("delete from {0} where id = {1}", typeof(T).Name, id)).ExecuteUpdate();
+
+                this.Session.Clear();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Não foi possível excluir " + typeof(T) + "\nErro:" + ex.Message);
+            }
+        }
+
+        public void DeleteAll(List<T> entity)
+        {
+            try
+            {
+                this.Session.Clear();
+
+                var transacao = this.Session.BeginTransaction();
+
+                this.Session.Delete(entity);
+
+                transacao.Commit();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Não foi possível excluir " + typeof(T) + "\nErro:" + ex.Message);
+            }
+        }
+
+        public void Clear()
+        {
+            if (this.Session != null)
+                this.Session.Clear();
+        }
+
+        public virtual T UnProxy(T entity)
+        {
+            try
+            {
+                return (T)this.Session.GetSessionImplementation().PersistenceContext.Unproxy(entity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Não foi possível salvar " + typeof(T) + "\nErro:" + ex.Message);
             }
         }
     }

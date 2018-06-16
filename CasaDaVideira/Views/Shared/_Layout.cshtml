@@ -54,6 +54,29 @@
             $("#modalCreateUser").modal("show");
         }
 
+        function cadastroClienteSucesso(data) {
+
+            $("#modalCreateUser").modal("hide");
+            $('body').removeClass('modal-open');
+            $('.modal.backdrop').remove();
+            var xmlString = data, parser = new DOMParser(), doc = parser.parseFromString(data, "text/html");
+
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300",
+                "hideDuration": "1500",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+            }
+
+            var elemento = doc.getElementById("nomeUsuario").innerHTML + "!";
+            var nome = elemento.split(" ");
+            var title = "Olá ".concat(nome[0]);
+
+            toastr["success"]("Seu cadastro foi realizado com sucesso!", title);
+        }
 
         function loginSucesso(data) {
            
@@ -78,10 +101,25 @@
             var title = "Olá ".concat(nome[0]);
 
             toastr["success"]("Seja bem vindo!", title);
-
-            console.log(doc);
         }
 
+        function cadastroSucesso(data) {
+            $("#btnCadastroPrimeiroAdmin").hide();
+            $("#modalLogin").modal("hide");
+            $("#modalCreateUser").modal("show");
+        }
+
+        function falhaCadastroUsuario(data) {
+            closeModalLogin();
+
+            toastr.options = {
+                "closeButton": true,
+                "positionClass": "toast-top-center"
+            }
+
+            toastr["error"]("Ocorreu um erro durante o cadastro", "Atenção");
+            console.log();
+        }
 
 
         function falhaLogin() {
@@ -160,7 +198,7 @@
             </div>
             <div class="w3l_search">
                 <form action="#" method="post">
-                    <input type="search" name="Search" placeholder="Search for a Product..." required="">
+                    <input type="search" name="Search" placeholder="Buscar produtos..." required="">
                     <button type="submit" class="btn btn-default search" aria-label="Left Align">
                         <i class="fa fa-search" aria-hidden="true"> </i>
                     </button>

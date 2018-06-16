@@ -49,7 +49,7 @@ namespace CasaDaVideira.Controllers
             if (LoginUtils.Usuario.Admin)
             {
                 var user = DbConfig.Instance.UsuarioRepository.FirstUser(idUsuario);
-                DbConfig.Instance.UsuarioRepository.Excluir(user);
+                DbConfig.Instance.UsuarioRepository.Delete(user);
             }
             return RedirectToAction("Index");
 
@@ -63,12 +63,25 @@ namespace CasaDaVideira.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult GravarUsuario(Usuario user)
+        public PartialViewResult GravarUsuario(Usuario user)
         {
-            //user.DtNascimento = DateTime.Now;
-            DbConfig.Instance.UsuarioRepository.Salvar(user);
+            try
+            {
+                if (user.Admin)
+                {
+                    DbConfig.Instance.UsuarioRepository.Update(user);
+                }
+                else
+                {
+                    DbConfig.Instance.UsuarioRepository.SaveOrUpdate(user);
+                }
+            }
+            catch
+            {
+                throw new Exception("Erro ao gravar o usuário");
+            }
             LoginUtils.Logar(user.Email, user.Senha);
-            return RedirectToAction("Index", "Home");
+            return PartialView("_LoginMenu",LoginUtils.Usuario);
         }
 
         public ActionResult BuscarUsuario(string busca)
@@ -111,7 +124,7 @@ namespace CasaDaVideira.Controllers
             telefone.Usuario = user;
             try
             {
-                DbConfig.Instance.TelefoneRepository.Salvar(telefone);
+                DbConfig.Instance.TelefoneRepository.Save(telefone);
             }
             catch (Exception ex)
             {
@@ -141,7 +154,7 @@ namespace CasaDaVideira.Controllers
             try
             {
                 var tel = DbConfig.Instance.TelefoneRepository.FirstTel(id);
-                DbConfig.Instance.TelefoneRepository.Excluir(tel);
+                DbConfig.Instance.TelefoneRepository.Delete(tel);
             }
             catch (Exception ex)
             {
@@ -174,7 +187,7 @@ namespace CasaDaVideira.Controllers
         {
             var user = DbConfig.Instance.UsuarioRepository.FirstUser(idUsuario);
             endereco.Usuario = user;
-            DbConfig.Instance.EnderecoRepository.Salvar(endereco);
+            DbConfig.Instance.EnderecoRepository.Save(endereco);
             return RedirectToAction("Index", "Usuario");
         }
 
@@ -192,7 +205,7 @@ namespace CasaDaVideira.Controllers
             try
             {
                 var end = DbConfig.Instance.EnderecoRepository.FirstEnd(id);
-                DbConfig.Instance.EnderecoRepository.Excluir(end);
+                DbConfig.Instance.EnderecoRepository.Delete(end);
             }
             catch (Exception ex)
             {
@@ -208,33 +221,13 @@ namespace CasaDaVideira.Controllers
             {
                 if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
                     throw new Exception("Email e senha são obrigatórios");
-                if (DbConfig.Instance.UsuarioRepository.FirstOrDefault() != null)
+                if (DbConfig.Instance.UsuarioRepository.SystemHasAdmin())
                 {
                     LoginUtils.Logar(email, senha);
                 }
                 else
                 {
-                    var iniFile = IniUtils.LerArquivoIni();
-                    if (email.Equals(iniFile["AdminFirstUser"]["key"]) && senha.Equals(iniFile["AdminFirstUser"]["password"]))
-                    {
-                        //var hoje = DateTime.Now;
-                        //string videira = "VIDEIRA";
-                        ////A senha será composta por uma Letra maiúscula V-I-D-E-I-R-A
-                        ////Esta letra será referente ao dia da semana sendo V para domingo e assim por diante
-                        ////Sequencialmente teremos minutos com 2 digitos numéricos
-                        ////dia
-                        ////hora
-                        ////mes (com um ou dois digitos)
-                        ////A letra do dia anterior minúscula
-                        //string password = videira[hoje.DayOfWeek.GetHashCode()].ToString();
-                        //password += hoje.Minute.ToString();
-                        //password += hoje.Day.ToString();
-                        //password += hoje.Hour.ToString();
-                        //password += hoje.Month.ToString();
-                        //password += videira[hoje.AddDays(-1).DayOfWeek.GetHashCode()].ToString().ToLower();
-
-                        var us = new Usuario();
-                    }                    
+                    throw new Exception("É preciso ter um administrador!");
                 }
                 return PartialView("_LoginMenu", LoginUtils.Usuario);
             }
@@ -244,11 +237,29 @@ namespace CasaDaVideira.Controllers
             }
         }
 
-        public ActionResult Deslogar(Usuario user)
+        public PartialViewResult CadastraAdmin(string email, string senha)
         {
-            LoginUtils.Deslogar();
+            var u = new Usuario();
+            var iniFile = IniUtils.LerArquivoIni();
+            if (email.Equals(iniFile["AdminFirstUser"]["key"]) && senha.Equals(iniFile["AdminFirstUser"]["password"]))
+            {
+                u.Admin = true;
+                u.Email = email;
+                u.Nome = "";
+                u.Sobrenome = "";
+                u.Senha = senha;
+                u.Cpf = "";
 
-            return RedirectToAction("Index", "Home");
-        }
+                DbConfig.Instance.UsuarioRepository.Save(u);
+            }
+            return PartialView("_CreateUser", u);
     }
+
+    public ActionResult Deslogar(Usuario user)
+    {
+        LoginUtils.Deslogar();
+
+        return RedirectToAction("Index", "Home");
+    }
+}
 }

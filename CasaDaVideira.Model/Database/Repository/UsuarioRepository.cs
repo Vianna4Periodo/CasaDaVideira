@@ -51,8 +51,13 @@ namespace CasaDaVideira.Model.Database.Repository
             catch(Exception ex)
             {
                 throw ex;
-            }
-            
+            }   
+        }
+
+        public bool SystemHasAdmin()
+        {
+            var user = this.Session.Query<Usuario>().FirstOrDefault(f => f.Admin == true);
+            return user != null ? true : false;
         }
 
         public Usuario Buscar(string email, string senha)

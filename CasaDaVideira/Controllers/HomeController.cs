@@ -14,9 +14,15 @@ namespace CasaDaVideira.Controllers
         [AllowAnonymous]
         public PartialViewResult Login()
         {
-            var existeAdmin = DbConfig.Instance.UsuarioRepository.FindAll().Where(w => w.Admin).FirstOrDefault();
-            ViewBag.ExisteAdmin = existeAdmin != null ? true : false;
-            return PartialView("_Login", LoginUtils.Usuario);
+            if (DbConfig.Instance.UsuarioRepository.SystemHasAdmin())
+            {
+                return PartialView("_Login", LoginUtils.Usuario);
+            }
+            else
+            {
+                return PartialView("_CadastraAdmin");
+            }
+            
         }
 
         

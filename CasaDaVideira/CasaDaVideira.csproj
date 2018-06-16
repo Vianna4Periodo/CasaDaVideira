@@ -315,6 +315,7 @@
     <Content Include="Views\Shared\_LoginMenu.cshtml" />
     <Content Include="Views\Shared\_StoreMenu.cshtml" />
     <Content Include="Views\Home\_Login.cshtml" />
+    <Content Include="Views\Home\_CadastraAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

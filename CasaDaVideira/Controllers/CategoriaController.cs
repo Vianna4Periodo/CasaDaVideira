@@ -25,7 +25,7 @@ namespace CasaDaVideira.Controllers
 
         public ActionResult GravarCategoria(Categoria categoria)
         {
-            DbConfig.Instance.CategoriaRepository.Salvar(categoria);
+            DbConfig.Instance.CategoriaRepository.Save(categoria);
             return RedirectToAction("Index");
         }
     }
