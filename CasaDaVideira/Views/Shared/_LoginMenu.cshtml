@@ -3,7 +3,10 @@
 @{
     var usuario = LoginUtils.Usuario;
 }
-<li><img id="loadAjax" src="~/images/gif/ajax-loader.gif" width="30" height="30" style="display:none;"/></li>
+
+
+
+<li><img id="loadAjax" src="~/images/gif/ajax-loader.gif" width="30" height="30" style="display:none;" /></li>
 @if (usuario == null)
 {
     <li>
@@ -23,6 +26,7 @@
            data-ajax-method="post"
            data-ajax-mode="replace"
            data-ajax-success="showModalLogin"
+           data-ajax-failure="error"
            data-ajax-update="#modaldiv"
            href="@Url.Action("Login", "Home")">
             <i class="glyphicon glyphicon-lock"></i> &brvbar; Login
@@ -36,18 +40,14 @@ else
         <li>@Html.ActionLink("Configurações", "Configuracoes", "Home")</li>
     }
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@usuario.Nome<b class="caret"></b></a>
-        <ul class="dropdown-menu multi-column columns-3">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nomeUsuario">@usuario.Nome<b class="caret"></b></a>
+        <div class="dropdown-menu multi-column columns-3">
             <div class="row">
                 <div class="multi-gd-img">
                     <ul class="multi-column-dropdown">
                         <h6>Opções</h6>
                         <li>@Html.ActionLink("Editar Cadastro", "DetailsUser", "Usuario")</li>
-                        <li>@Html.ActionLink("Sair", "Deslogar", "Usuario")</li>
-                        @*<li><a href="groceries.html">Cashews</a></li>
-                            <li><a href="groceries.html">Dry Fruit</a></li>
-                            <li><a href="groceries.html"> Mukhwas </a></li>
-                            <li><a href="groceries.html">Rice & Rice Products</a></li>*@
+                        <li>@Html.ActionLink("Sair", "Deslogar", "Usuario")</li>                        
                         @if (!LoginUtils.Usuario.Admin)
                         {
                             <li><p>Você possui @LoginUtils.Usuario.Pontos pontos</p></li>
@@ -55,6 +55,6 @@ else
                     </ul>
                 </div>
             </div>
-        </ul>
+        </div>
     </li>
 }
