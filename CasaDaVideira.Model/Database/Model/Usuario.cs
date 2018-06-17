@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CasaDaVideira.Model.Database.Model
 {
-    public class Usuario
+    public class Usuario : EntityBase
     {
         public virtual Guid IdUsuario { get; set; }
         [Required(ErrorMessage = "Email é obrigatorio", AllowEmptyStrings = false)]
@@ -27,8 +27,9 @@ namespace CasaDaVideira.Model.Database.Model
         public virtual IList<Telefone> Telefones { get; set; }
         public virtual IList<Endereco> Enderecos { get; set; }
         public virtual bool Admin { get; set; }
+        public virtual Carrinho Carrinho { get; set; } 
 
-        public Usuario()
+        public Usuario() : base()
         {
             this.Telefones = new List<Telefone>();
             this.Enderecos = new List<Endereco>();
@@ -77,6 +78,7 @@ namespace CasaDaVideira.Model.Database.Model
                     m.Type(NHibernateUtil.Date);
                     m.NotNullable(false);
                 });
+                Property(x => x.Ativo, m => m.NotNullable(true));
                 Bag<Telefone>(x => x.Telefones, m =>
                 {
                     m.Cascade(Cascade.All);

@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Super Market an Ecommerce Online Shopping Category Flat Bootstrap Responsive Website Template | @ViewBag.Title</title>
+    <title>Casa da videira | @ViewBag.Title</title>
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8" />
@@ -38,115 +38,13 @@
                 $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
             });
         });
-
-
-        function showModalLogin() {
-            $("#modalLogin").modal("show");
-        }
-
-        function closeModalLogin() {
-            $("#modalLogin").modal("hide");
-            $('body').removeClass('modal-open');
-            $('.modal.backdrop').remove();
-        }
-
-        function showModalCreateUser() {
-            $("#modalCreateUser").modal("show");
-        }
-
-        function cadastroClienteSucesso(data) {
-
-            $("#modalCreateUser").modal("hide");
-            $('body').removeClass('modal-open');
-            $('.modal.backdrop').remove();
-            var xmlString = data, parser = new DOMParser(), doc = parser.parseFromString(data, "text/html");
-
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true,
-                "positionClass": "toast-top-center",
-                "showDuration": "300",
-                "hideDuration": "1500",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-            }
-
-            var elemento = doc.getElementById("nomeUsuario").innerHTML + "!";
-            var nome = elemento.split(" ");
-            var title = "Olá ".concat(nome[0]);
-
-            toastr["success"]("Seu cadastro foi realizado com sucesso!", title);
-        }
-
-        function loginSucesso(data) {
-           
-            var xmlString = data, parser = new DOMParser(), doc = parser.parseFromString(data, "text/html");            
-
-            $("#modalLogin").modal("hide");
-            $('body').removeClass('modal-open');
-            $('.modal.backdrop').remove();
-
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true,
-                "positionClass": "toast-top-center",
-                "showDuration": "300",
-                "hideDuration": "1500",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-            }
-
-            var elemento = doc.getElementById("nomeUsuario").innerHTML + "!";
-            var nome = elemento.split(" ");
-            var title = "Olá ".concat(nome[0]);
-
-            toastr["success"]("Seja bem vindo!", title);
-        }
-
-        function cadastroSucesso(data) {
-            $("#btnCadastroPrimeiroAdmin").hide();
-            $("#modalLogin").modal("hide");
-            $("#modalCreateUser").modal("show");
-        }
-
-        function falhaCadastroUsuario(data) {
-            closeModalLogin();
-
-            toastr.options = {
-                "closeButton": true,
-                "positionClass": "toast-top-center"
-            }
-
-            toastr["error"]("Ocorreu um erro durante o cadastro", "Atenção");
-            console.log();
-        }
-
-
-        function falhaLogin() {
-            closeModalLogin();
-
-            toastr.options = {
-                "closeButton": true,
-                "positionClass": "toast-top-center"
-            }
-
-            toastr["error"]("Ocorreu um erro durante o login", "Atenção");
-            console.log();
-        }
-
-
-        function error() {
-            toastr["error"]("Ocorreu um erro inesperado.", "Atenção");
-        }
-
     </script>
-
+    <script src="~/Scripts/ajaxFunctions.js"></script>
     <!-- start-smoth-scrolling -->
     <!-- Talvez isso seja inútil-->
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/Scripts/toastr.min.js"></script>
-    <script src="~/Scripts/site.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js"></script>

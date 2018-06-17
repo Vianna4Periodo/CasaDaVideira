@@ -32,11 +32,9 @@
                         @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", @placeholder = "Senha", @type = "password" } })
                         @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
 
-
-                        
-                            <div class="forgot">
-                                <a href="#">Esqueceu sua senha?</a>
-                            </div>
+                        <div class="forgot">
+                            <a href="#">Esqueceu sua senha?</a>
+                        </div>
                                                 
                         <input type="submit" value="Entrar">
                     }

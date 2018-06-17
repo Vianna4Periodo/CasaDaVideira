@@ -21,5 +21,10 @@ namespace CasaDaVideira.Model.Database.Repository
             var produto = this.Session.Query<Produto>().First(f => f.IdProduto == idProduto);
             return produto;
         }
+
+        public override Produto Update(Produto entity)
+        {
+            return base.Update(entity);
+        }
     }
 }

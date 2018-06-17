@@ -5,26 +5,14 @@ using System.Collections.Generic;
 
 namespace CasaDaVideira.Model.Database.Model
 {
-    public class Produto
+    public class Produto : EntityBase
     {
+        private double preco;
         public virtual Guid IdProduto { get; set; }
         public virtual string Nome { get; set; }
         public virtual string DescricaoResumida { get; set; }
         public virtual string DescricaoCompleta { get; set; }
-        //public virtual double Preco
-        //{
-        //    get
-        //    {
-        //        return this.Preco;
-        //    }
-        //    set
-        //    {
-        //        this.PrecoAntigo = this.Preco;
-        //        this.Preco = value;
-        //    }
-        //}
         public virtual double Peso { get; set; }
-        public virtual double Preco { get; set; }
         public virtual int Qtd { get; set; }
         public virtual double PrecoAntigo { get; set; }
         public virtual Categoria Categoria { get; set; }
@@ -32,8 +20,23 @@ namespace CasaDaVideira.Model.Database.Model
         public virtual int Classificacao { get; set; }
         public virtual IList<Imagem>  Imagens { get; set; }
 
-        public Produto()
+        public virtual IList<Carrinho> Carrinhos { get; set; }
+        public virtual double Preco
         {
+            get
+            {
+                return preco;
+            }
+            set
+            {
+                if (this.preco != value)
+                    this.PrecoAntigo = preco;
+                preco = value;
+            }
+        }
+        public Produto() : base()
+        {
+            preco = Preco;
             Imagens = new List<Imagem>();
         }
     }
@@ -54,11 +57,11 @@ namespace CasaDaVideira.Model.Database.Model
             Property(x => x.PrecoAntigo);
             Property(x => x.Oferta);
             Property(x => x.Classificacao);
-
+            Property(x => x.Ativo, m => m.NotNullable(true));
             Bag<Imagem>(x => x.Imagens, m =>
             {
                 m.Cascade(Cascade.All);
-                m.Key(k => k.Column("IdProduto"));
+                m.Key(k => k.Column("idProduto"));
                 m.Lazy(CollectionLazy.NoLazy);
                 m.Inverse(true);
             },
@@ -67,9 +70,20 @@ namespace CasaDaVideira.Model.Database.Model
             ManyToOne(x => x.Categoria, m =>
             {
                 m.Cascade(Cascade.All);
-                m.Column("IdCategoria");
+                m.Column("idCategoria");
                 m.Lazy(LazyRelation.NoLazy);
             });
+
+            Bag<Carrinho>(x => x.Carrinhos,
+                m => {
+                        m.Table("Carrinho_has_Produtos");
+                        m.Cascade(Cascade.All);
+                        m.Key(k => k.Column("idProduto"));
+                        m.Lazy(CollectionLazy.NoLazy);
+                        m.Inverse(true);
+                    },
+                r => r.ManyToMany(map => map.Column("idCarrinho"))
+            );
         }
     }
 }

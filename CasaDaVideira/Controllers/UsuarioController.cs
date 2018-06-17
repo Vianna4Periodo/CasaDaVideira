@@ -26,10 +26,12 @@ namespace CasaDaVideira.Controllers
         {
             var user = new Usuario();
             if (LoginUtils.Usuario != null)
+            {
                 if (LoginUtils.Usuario.Admin)
                 {
                     user.Admin = admin;
                 }
+            }
             return PartialView("_CreateUser", user);
         }
 

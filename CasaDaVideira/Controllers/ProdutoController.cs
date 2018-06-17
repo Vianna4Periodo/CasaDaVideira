@@ -17,19 +17,30 @@ namespace CasaDaVideira.Controllers
             return View(produtos);
         }
 
-        public ActionResult CreateProduto()
+        public PartialViewResult CreateProduto()
         {
-            if (LoginUtils.Usuario !=null) {
-                if (LoginUtils.Usuario.Admin)
-                {
-                    var prod = new Produto();
-                    return View(prod);
-                }
-            }
-            return RedirectToAction("Index", "Home");
-            
+            if (LoginUtils.Usuario !=null && LoginUtils.Usuario.Admin)
+                return PartialView("_CadastraProduto", new Produto());
+            throw new Exception("Tentativa ilegal de acesso - Not Admin user");
         }
+        public ActionResult UpdateProduto(Produto produto)
+        {
+            Produto p = DbConfig.Instance.ProdutoRepository.FindFirstById(produto.IdProduto);
 
+            p.Preco = produto.Preco;
+            p.Categoria = produto.Categoria;
+            p.Classificacao = produto.Classificacao;
+            p.DescricaoCompleta = produto.DescricaoCompleta;
+            p.DescricaoResumida = produto.DescricaoResumida;
+            p.Imagens = produto.Imagens;
+            p.Nome = produto.Nome;
+            p.Oferta = produto.Oferta;
+            p.Peso = produto.Peso;
+
+            DbConfig.Instance.ProdutoRepository.Update(p);
+
+            return View("Index", DbConfig.Instance.ProdutoRepository.FindAll());
+        }
         public ActionResult EditProduto(Guid idProduto)
         {
             var prod = DbConfig.Instance.ProdutoRepository.FindAll().FirstOrDefault(f => f.IdProduto == idProduto);
@@ -81,51 +92,6 @@ namespace CasaDaVideira.Controllers
             var prod = DbConfig.Instance.ProdutoRepository.FindAll().Where(f => f.Nome.ToLower().Contains(buscaP.ToLower()));
             return View("Index", prod);
         }
-
-        //public ActionResult Categoria(int idCategoria)
-        //{
-        //    var cat = DbConfig.Instance.CategoriaRepository.FirstCategoria(idCategoria);
-
-        //    if (cat != null)
-        //    {
-        //        return View(cat);
-        //    }
-
-        //    return RedirectToAction("Index");
-        //}
-
-        //public ActionResult CriarCategoria(int idCategoria, int idProduto)
-        //{
-        //    var cat = new Categoria();
-        //    ViewData["IdCProduto"] = idProduto;
-
-        //    return View(cat);
-        //}
-
-        //public ActionResult GravarCategoria(Categoria categoria)
-        //{
-        //    DbConfig.Instance.CategoriaRepository.Save(categoria);
-        //    //return View("Telefones");
-        //    return RedirectToAction("Index");
-        //}
-
-        //public ActionResult EditarCategoria(int categoria)
-        //{
-        //    var cat = DbConfig.Instance.CategoriaRepository.FirstCategoria(categoria);
-
-        //    ViewData["IdProduto"] = cat.Produto.IdProduto;
-        //    return View("CriarCategpria", cat);
-
-        //}
-
-        //public ActionResult DeletarCategoria(int idCategoria)
-        //{
-        //    var cat = DbConfig.Instance.CategoriaRepository.FirstCategoria(idCategoria);
-
-        //    DbConfig.Instance.CategoriaRepository.Excluir(cat);
-
-        //    return RedirectToAction("Index");
-        //}
         
     }
 }

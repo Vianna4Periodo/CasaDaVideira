@@ -1058,6 +1058,12 @@ a.w3_agile_vimeo:hover {
         color: #3399cc;
         text-decoration: none;
     }
+
+/*-- General forms --*/
+.gen-form-grids {
+    width: 85% !important;
+}
+/*--// --*/
 /*-- login --*/
 .login-form-grids {
     width: 45%;
@@ -1084,7 +1090,6 @@ a.w3_agile_vimeo:hover {
 .forgot {
     margin: 1.5em 0 0;
 }
-
 .login-form-grids input[type="submit"] {
     outline: none;
     border: none;
@@ -1094,7 +1099,7 @@ a.w3_agile_vimeo:hover {
     display: block;
     width: 100%;
     background: #3399cc;
-    margin: 1.5em 0 0;
+    margin: 3em 0 0;
 }
 
     .login-form-grids input[type="submit"]:hover {
@@ -1105,15 +1110,16 @@ a.w3_agile_vimeo:hover {
     color: #999;
 }
 
-.forgot a {
-    color: #212121;
-    font-size: 14px;
-    text-decoration: none;
-}
 
-    .forgot a:hover {
-        color: #d8703f;
+    .forgot a {
+        color: #212121;
+        font-size: 14px;
+        text-decoration: none;
     }
+
+        .forgot a:hover {
+            color: #d8703f;
+        }
 
 .login h4 {
     margin: 2em 0 0.5em;

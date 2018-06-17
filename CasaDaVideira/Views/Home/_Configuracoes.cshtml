@@ -7,11 +7,34 @@
 <div class="container">
     <div class="row" style="margin: 50px">
         <div class="col-md-6">
-            <a href="#">trocar imagens do carrossel</a>
-        </div>
-        <div class="col-md-6">
-            <a href="#">Limpar dados</a>
+            <h4>Produtos</h4>
+            <hr/>
+            <ul class="list-unstyled input-group">
+                <li>@Ajax.ActionLink("Cadastrar Produto", "CreateProduto", "Produto",
+                        new AjaxOptions()
+                        {
+                            HttpMethod = "post",
+                            OnSuccess = "showCadastroProduto",
+                            OnFailure = "failCadastroProduto",
+                            LoadingElementId = "loadAjax",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "modaldiv"
+                        })</li>
+                <li>
+                    @Ajax.ActionLink("Cadastrar Categoria", "CreateCategoria", "Categoria",
+                        new AjaxOptions()
+                        {
+                            HttpMethod = "post",
+                            OnSuccess = "showCadastroCategoria",
+                            OnFailure = "",
+                            LoadingElementId = "loadAjax",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "modaldiv"
+                        })
+
+
+                </li>
+            </ul>
         </div>
     </div>
-    
 </div>

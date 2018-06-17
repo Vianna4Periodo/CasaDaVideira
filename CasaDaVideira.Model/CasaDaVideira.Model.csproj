@@ -61,6 +61,7 @@
     <Compile Include="Database\Model\Carrinho.cs" />
     <Compile Include="Database\Model\Categoria.cs" />
     <Compile Include="Database\Model\Endereco.cs" />
+    <Compile Include="Database\Model\EntityBase.cs" />
     <Compile Include="Database\Model\Imagem.cs" />
     <Compile Include="Database\Model\Produto.cs" />
     <Compile Include="Database\Model\Telefone.cs" />

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CasaDaVideira.Model.Database.Model
 {
-    public class Telefone
+    public class Telefone : EntityBase
     {
 
         public virtual Guid Id { get; set; }
@@ -17,6 +17,12 @@ namespace CasaDaVideira.Model.Database.Model
         public virtual string Tipo { get; set; }
 
         public virtual Usuario Usuario { get; set; }
+
+        public Telefone()
+            : base()
+        {
+
+        }
     }
 
     public class TelefoneMap : ClassMapping<Telefone>
@@ -28,7 +34,7 @@ namespace CasaDaVideira.Model.Database.Model
             Property(x => x.Ddd);
             Property(x => x.Numero);
             Property(x => x.Tipo);
-
+            Property(x => x.Ativo, m => m.NotNullable(true));
             ManyToOne(x => x.Usuario, m =>
             {
                 m.Column("idUsuario");
