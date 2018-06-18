@@ -23,7 +23,7 @@ namespace CasaDaVideira.Controllers
             {
                 var tipos = DbConfig.Instance.CategoriaRepository.FindAll();
 
-                ViewBag.Categorias = new SelectList(tipos, "IdCategoria", "Nome");
+                ViewBag.Categorias = new SelectList(tipos, "Id", "Nome");
 
                 return PartialView("_CadastraProduto", new Produto());
             }
