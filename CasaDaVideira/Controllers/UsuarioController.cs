@@ -74,7 +74,6 @@ namespace CasaDaVideira.Controllers
             return View(user);
         }
 
-        [AllowAnonymous]
         public PartialViewResult GravarUsuario(Usuario user)
         {
             try
