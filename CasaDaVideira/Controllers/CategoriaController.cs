@@ -8,6 +8,8 @@ using System.Web.Mvc;
 
 namespace CasaDaVideira.Controllers
 {
+    using Mvc.Model.Utils;
+
     public class CategoriaController : Controller
     {
         // GET: Categoria
@@ -17,16 +19,22 @@ namespace CasaDaVideira.Controllers
             return View(categorias);
         }
 
-        public ActionResult CreateCategoria()
+        public PartialViewResult CreateCategoria()
         {
-            var categoria = new Categoria();
-            return View(categoria);
+            if (LoginUtils.Usuario != null && LoginUtils.Usuario.Admin)
+                return PartialView("_CadastroCategoria", new Categoria());
+            throw new Exception("Tentativa ilegal de acesso - Not Admin user");
         }
 
         public ActionResult GravarCategoria(Categoria categoria)
         {
             DbConfig.Instance.CategoriaRepository.Save(categoria);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(string s)
+        {
+            throw new NotImplementedException();
         }
     }
 }

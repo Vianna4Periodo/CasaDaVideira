@@ -26,10 +26,12 @@ namespace CasaDaVideira.Controllers
         {
             var user = new Usuario();
             if (LoginUtils.Usuario != null)
+            {
                 if (LoginUtils.Usuario.Admin)
                 {
                     user.Admin = admin;
                 }
+            }
             return PartialView("_CreateUser", user);
         }
 
@@ -37,7 +39,7 @@ namespace CasaDaVideira.Controllers
         {
             Usuario user;
             if (LoginUtils.Usuario.Admin)
-                user = DbConfig.Instance.UsuarioRepository.FirstUser(idUsuario);
+                user = DbConfig.Instance.UsuarioRepository.FindFirstById(idUsuario);
             else
                 user = LoginUtils.Usuario;
 
@@ -48,7 +50,7 @@ namespace CasaDaVideira.Controllers
         {
             if (LoginUtils.Usuario.Admin)
             {
-                var user = DbConfig.Instance.UsuarioRepository.FirstUser(idUsuario);
+                var user = DbConfig.Instance.UsuarioRepository.FindFirstById(idUsuario);
                 DbConfig.Instance.UsuarioRepository.Delete(user);
             }
             return RedirectToAction("Index");
@@ -119,7 +121,7 @@ namespace CasaDaVideira.Controllers
 
         public ActionResult GravarTelefone(Telefone telefone, Guid idUsuario)
         {
-            var user = DbConfig.Instance.UsuarioRepository.FirstUser(idUsuario);
+            var user = DbConfig.Instance.UsuarioRepository.FindFirstById(idUsuario);
 
             telefone.Usuario = user;
             try
@@ -140,7 +142,7 @@ namespace CasaDaVideira.Controllers
             try
             {
                 tel = DbConfig.Instance.TelefoneRepository.FirstTel(id);
-                ViewData["IdUsuario"] = tel.Usuario.IdUsuario;
+                ViewData["IdUsuario"] = tel.Usuario.Id;
             }
             catch (Exception ex)
             {
@@ -165,7 +167,7 @@ namespace CasaDaVideira.Controllers
 
         public ActionResult Enderecos(Guid id)
         {
-            var user = DbConfig.Instance.EnderecoRepository.FirstEnd(id);
+            var user = DbConfig.Instance.EnderecoRepository.FindFirstById(id);
 
             if (user != null)
             {
@@ -185,7 +187,7 @@ namespace CasaDaVideira.Controllers
 
         public ActionResult GravarEndereco(Endereco endereco, Guid idUsuario)
         {
-            var user = DbConfig.Instance.UsuarioRepository.FirstUser(idUsuario);
+            var user = DbConfig.Instance.UsuarioRepository.FindFirstById(idUsuario);
             endereco.Usuario = user;
             DbConfig.Instance.EnderecoRepository.Save(endereco);
             return RedirectToAction("Index", "Usuario");
@@ -193,9 +195,9 @@ namespace CasaDaVideira.Controllers
 
         public ActionResult EditarEndereco(Guid id)
         {
-            var end = DbConfig.Instance.EnderecoRepository.FirstEnd(id);
+            var end = DbConfig.Instance.EnderecoRepository.FindFirstById(id);
 
-            ViewData["IdUsuario"] = end.Usuario.IdUsuario;
+            ViewData["IdUsuario"] = end.Usuario.Id;
             return View("CriarEndereco", end);
 
         }
@@ -204,7 +206,7 @@ namespace CasaDaVideira.Controllers
         {
             try
             {
-                var end = DbConfig.Instance.EnderecoRepository.FirstEnd(id);
+                var end = DbConfig.Instance.EnderecoRepository.FindFirstById(id);
                 DbConfig.Instance.EnderecoRepository.Delete(end);
             }
             catch (Exception ex)
@@ -249,10 +251,8 @@ namespace CasaDaVideira.Controllers
                 u.Sobrenome = "";
                 u.Senha = senha;
                 u.Cpf = "";
-
-                DbConfig.Instance.UsuarioRepository.Save(u);
             }
-            return PartialView("_CreateUser", u);
+            return PartialView("_CreateUser", DbConfig.Instance.UsuarioRepository.Save(u));
     }
 
     public ActionResult Deslogar(Usuario user)

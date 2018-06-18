@@ -7,17 +7,40 @@ using System.Threading.Tasks;
 
 namespace CasaDaVideira.Model.Database.Model
 {
-    public class Carrinho
+    using NHibernate.Mapping.ByCode;
+
+    public class Carrinho : EntityBase
     {
-        public IList<Produto> Produtos { get; set; }
-        public Usuario Usuario { get; set; }
+        public virtual IList<Produto> Produtos { get; set; }
+        public virtual Usuario Usuario { get; set; }
+
+
+        public Carrinho() : base()
+        {
+            
+        }
     }
 
-    //public class CarrinhoMap : ClassMapping<Carrinho>
-    //{
-    //    public CarrinhoMap()
-    //    {
+    public class CarrinhoMap : ClassMapping<Carrinho>
+    {
+        public CarrinhoMap()
+        {
+            Id(x => x.Id);
+            Bag<Produto>(x => x.Produtos, 
+                m =>{
+                        m.Table("Carrinho_has_Produtos");
+                        m.Cascade(Cascade.All);
+                        m.Key(k => k.Column("idCarrinho"));
+                        m.Lazy(CollectionLazy.NoLazy);
+                        m.Inverse(true);
+                    },
+                r => r.ManyToMany(map => map.Column("idProduto"))
+            );
+            ManyToOne(x => x.Usuario, m =>
+                {
+                    m.Column("idUsuario");
+                });
 
-    //    }
-    //}
+        }
+    }
 }

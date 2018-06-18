@@ -37,8 +37,6 @@ namespace Mvc.Model.Utils
 
                 FormsAuthentication.SetAuthCookie(usuario.Email, true);
 
-                usuario.UltimoAcesso = DateTime.Now;
-                DbConfig.Instance.UsuarioRepository.SaveOrUpdate(usuario);
                 return usuario;
             }
             catch (Exception ex)
@@ -51,6 +49,8 @@ namespace Mvc.Model.Utils
         {
             try
             {
+                Usuario.UltimoAcesso = DateTime.Now;
+                DbConfig.Instance.UsuarioRepository.SaveOrUpdate(Usuario);
                 Usuario = null;
                 _usuario = null;
                 FormsAuthentication.SignOut();

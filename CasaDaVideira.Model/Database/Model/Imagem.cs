@@ -4,14 +4,13 @@ using System;
 
 namespace CasaDaVideira.Model.Database.Model
 {
-    public class Imagem
+    public class Imagem : EntityBase
     {
-        public virtual Guid IdImagem { get; set; }
         public virtual Produto Produto { get; set; }
         public virtual string Caminho { get; set; }
         public virtual DateTime DataInclusao { get; set; }
 
-        public Imagem()
+        public Imagem() : base()
         {
 
         }
@@ -34,13 +33,14 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public ImagemMap()
         {
-            Id(x => x.IdImagem, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m => m.Generator(Generators.Guid));
             Property(x => x.Caminho);
             Property(x => x.DataInclusao);
+            Property(x => x.Ativo, m => m.NotNullable(true));
             ManyToOne(x => x.Produto, m =>
             {
                 m.Cascade(Cascade.All);
-                m.Column("IdProduto");
+                m.Column("idProduto");
                 m.Lazy(LazyRelation.NoLazy);
             });
         }

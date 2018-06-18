@@ -2,26 +2,24 @@
 @using Mvc.Model.Utils
 @{
     var usuario = LoginUtils.Usuario;
+    ViewBag.Title = "Categorias";
 }
-
-
-    <p>
-        @Html.ActionLink("Create New", "CreateCategoria")
-    </p>
+<div class="container">
     <table class="table">
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            @if (usuario != null && usuario.Admin)
-            {
+        @foreach (var item in Model)
+        {
+            <tr>
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.IdCategoria }) |
-                    @Html.ActionLink("Apagar", "Delete", new { id = item.IdCategoria })
+                    @Html.DisplayFor(modelItem => item.Nome)
                 </td>
-            }
-        </tr>
-    }
-    
+                @if (usuario != null && usuario.Admin)
+                {
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Apagar", "Delete", new { id = item.Id })
+                    </td>
+                }
+            </tr>
+        }
     </table>
+</div>

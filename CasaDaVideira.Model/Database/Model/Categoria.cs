@@ -5,25 +5,29 @@ using System.Collections.Generic;
 
 namespace CasaDaVideira.Model.Database.Model
 {
-    public class Categoria
+    public class Categoria : EntityBase
     {
-        public virtual Guid IdCategoria { get; set; }
         public virtual string Nome { get; set; }
         public virtual IList<Produto> Produtos { get; set; }
+
+        public Categoria() : base()
+        {
+            
+        }
     }
 
     public class CategoriaMap : ClassMapping<Categoria>
     {
         public CategoriaMap()
         {
-            Id(x => x.IdCategoria, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m => m.Generator(Generators.Guid));
 
             Property(x => x.Nome);
-
+            Property(x => x.Ativo, m => m.NotNullable(true));
             Bag<Produto>(x => x.Produtos, m =>
             {
                 m.Cascade(Cascade.Persist);
-                m.Key(k => k.Column("IdCategoria"));
+                m.Key(k => k.Column("idCategoria"));
                 m.Lazy(CollectionLazy.NoLazy);
                 m.Inverse(true);
             },

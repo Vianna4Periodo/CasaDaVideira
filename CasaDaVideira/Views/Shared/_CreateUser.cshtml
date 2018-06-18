@@ -13,7 +13,7 @@
             <div class="modal-body">
                 <div class="register">
                     <h2>Cadastre-se aqui</h2>
-                    <div class="login-form-grids">
+                    <div class="gen-form-grids login-form-grids">
                         @using (Ajax.BeginForm("GravarUsuario", "Usuario", new AjaxOptions() {
                             HttpMethod = "post",
                             OnSuccess = "cadastroClienteSucesso",
@@ -25,11 +25,11 @@
                         {
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(model => model.Admin)
-                            @Html.HiddenFor(model => model.IdUsuario)
+                            @Html.HiddenFor(model => model.Id)
 
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                            <h6>Informações pessoais</h6>
+                            <div class="col-md-6">
+                                <h6>Informações pessoais</h6>
                                 @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @placeholder = "Nome" } })
                                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
 
@@ -38,7 +38,8 @@
 
                                 @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @placeholder = "CPF" } })
                                 @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
-
+                            </div>
+                            <div class="col-md-6">
                                 <h6>Informações de Login</h6>
                                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @placeholder = "E-Mail" } })
                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
@@ -46,14 +47,11 @@
                                 @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @placeholder = "Senha", @type = "password" } })
                                 @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
                                 <input type="password" placeholder="Password Confirmation" required="">
-
+                            </div>
                             var valor = Model.Email == null ? "Cadastrar" : "Alterar";
-
+                            
                             <input type="submit" value=@valor onclick="this.disabled=true;"/>
                         }
-                    </div>
-                    <div class="register-home">
-                        @Html.ActionLink("página inicial", "Index", "Home")
                     </div>
                 </div>
             </div>

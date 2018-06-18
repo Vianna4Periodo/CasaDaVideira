@@ -4,46 +4,40 @@
     ViewBag.Title = "Index";
     var usuario = LoginUtils.Usuario;
 }
+<div class="container">
+    <table class="table">
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.Nome)</th>
+            <th>@Html.DisplayNameFor(model => model.DescricaoResumida)</th>
+            <th> @Html.DisplayNameFor(model => model.Preco)</th>
+            <th>@Html.DisplayNameFor(model => model.Qtd)</th>
+            <th></th>
+        </tr>
 
-<p>
-    @if (usuario != null && usuario.Admin)
-    {
-        @Html.ActionLink("Cadastrar", "CreateProduto")
-    }    
-</p>
-<table class="table">
-    <tr>
-        <th> @Html.DisplayNameFor(model => model.Nome)</th>
-        <th>@Html.DisplayNameFor(model => model.DescricaoResumida)</th>
-        <th> @Html.DisplayNameFor(model => model.Preco)</th>
-        <th>@Html.DisplayNameFor(model => model.Qtd)</th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                <td>@Html.DisplayFor(modelItem => item.DescricaoResumida)</td>
+                <td>@Html.DisplayFor(modelItem => item.Preco)</td>
+                <td>@Html.DisplayFor(modelItem => item.Qtd)</td>
+                @if (usuario != null && usuario.Admin)
+                {
+                    <td>
+                        @Html.ActionLink("Editar", "EditProduto", new { idProduto = item.Id }, new { @class = "btn btn-info" })|
+                        @Html.ActionLink("Apagar", "DeleteProduto", new { idProduto = item.Id }, new { @class = "btn btn-danger" }) |
+                        <a data-ajax="true"
+                           data-ajax-loading="#loadAjax"
+                           data-ajax-method="post"
+                           data-ajax-mode="replace"
+                           data-ajax-success="exibirDlgSaidaEstadia"
+                           data-ajax-update="#telaSaida"
+                           href="@Url.Action("AddImagem", "Produto", new { idProduto = item.Id, info = true})"
+                           class="btn btn-success">Adicionar Imagem</a>
+                    </td>
+                }
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-        <td>@Html.DisplayFor(modelItem => item.DescricaoResumida)</td>
-        <td>@Html.DisplayFor(modelItem => item.Preco)</td>
-        <td>@Html.DisplayFor(modelItem => item.Qtd)</td>
-@if (usuario != null && usuario.Admin)
-{
-        <td>
-            @Html.ActionLink("Editar", "EditProduto", new { idProduto = item.IdProduto }, new { @class = "btn btn-info" })|
-            @Html.ActionLink("Apagar", "DeleteProduto", new { idProduto = item.IdProduto }, new { @class = "btn btn-danger" }) |
-
-            <a data-ajax="true"
-               data-ajax-loading="#loadAjax"
-               data-ajax-method="post"
-               data-ajax-mode="replace"
-               data-ajax-success="exibirDlgSaidaEstadia"
-               data-ajax-update="#telaSaida"
-               href="@Url.Action("AddImagem", "Produto", new { idProduto = item.IdProduto, info = true})"
-               class="btn btn-success">Adicionar Imagem
-            </a>
-        </td>
-}
-    </tr>
-}
-
-</table>
+    </table>
+</div>
