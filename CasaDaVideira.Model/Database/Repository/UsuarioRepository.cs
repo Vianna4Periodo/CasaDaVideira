@@ -16,19 +16,7 @@ namespace CasaDaVideira.Model.Database.Repository
         {
 
         }
-        public Usuario FirstUser(Guid idUsuario)
-        {
-            try
-            {
-                var usuario = this.Session.Query<Usuario>().FirstOrDefault(f => f.IdUsuario == idUsuario);
-                return usuario;
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-            
-        }
+      
         public Usuario GetUserByLoginAndPassword(string login, string password)
         {
             try

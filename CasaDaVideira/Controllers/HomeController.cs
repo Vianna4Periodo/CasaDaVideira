@@ -22,7 +22,6 @@ namespace CasaDaVideira.Controllers
             {
                 return PartialView("_CadastraAdmin");
             }
-            
         }
 
         

@@ -14,12 +14,5 @@ namespace CasaDaVideira.Model.Database.Repository
         public CategoriaRepository(ISession session) : base(session)
         {
         }
-
-        public Categoria FirstEnd(Guid idCategoria)
-        {
-            var end = this.Session.Query<Categoria>().FirstOrDefault(f => f.IdCategoria == idCategoria);
-
-            return end;
-        }
     }
 }

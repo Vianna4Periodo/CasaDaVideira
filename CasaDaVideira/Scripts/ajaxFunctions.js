@@ -9,6 +9,10 @@
         "extendedTimeOut": "1000",
     }
 }
+
+function refresh() {
+    window.location.reload();
+}
 function showModalLogin() {
     $("#modalLogin").modal("show");
 }
@@ -60,18 +64,27 @@ function cadastroClienteSucesso(data) {
     toastr["success"]("Seu cadastro foi realizado com sucesso!", title);
 }
 function loginSucesso(data) {
-
-    var xmlString = data, parser = new DOMParser(), doc = parser.parseFromString(data, "text/html");
+    var doc = new DOMParser().parseFromString(data, "text/html");
 
     $("#modalLogin").modal("hide");
     $('body').removeClass('modal-open');
     $('.modal.backdrop').remove();
-
+    
     var elemento = doc.getElementById("nomeUsuario").innerHTML + "!";
     var nome = elemento.split(" ");
     var title = "Olá ".concat(nome[0]);
-
-    setToastr();
+    
+    toastr.options =
+    {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-top-center",
+        "showDuration": "300",
+        "hideDuration": "1500",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "onHidden": refresh(),
+    };
     toastr["success"]("Seja bem vindo!", title);
 }
 function cadastroSucesso(data) {
@@ -93,7 +106,8 @@ function falhaLogin() {
     toastr["error"]("Ocorreu um erro durante o login", "Atenção");
     console.log();
 }
-function error() {
+function fail(data) {
     setToastr();
-    toastr["error"]("Ocorreu um erro inesperado.", "Atenção");
+    toastr["error"]("Ocorreu um erro desconhecido.", "Atenção");
+    console.log(data);
 }

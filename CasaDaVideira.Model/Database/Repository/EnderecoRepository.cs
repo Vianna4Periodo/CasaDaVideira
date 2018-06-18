@@ -15,12 +15,5 @@ namespace CasaDaVideira.Model.Database.Repository
         {
 
         }
-
-        public Endereco FirstEnd(Guid idEndereco)
-        {
-            var end = this.Session.Query<Endereco>().FirstOrDefault(f => f.IdEndereco == idEndereco);
-
-            return end;
-        }
     }
 }
