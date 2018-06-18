@@ -29,7 +29,11 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public EnderecoMap()
         {
-            Id(x => x.Id, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m =>
+            {
+                m.Generator(Generators.Guid);
+                m.Column("idEndereco");
+            });
 
             Property(x => x.Rua);
             Property(x => x.Numero);

@@ -20,7 +20,11 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public CategoriaMap()
         {
-            Id(x => x.Id, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m =>
+            {
+                m.Generator(Generators.Guid);
+                m.Column("idCategoria");
+            });
 
             Property(x => x.Nome);
             Property(x => x.Ativo, m => m.NotNullable(true));

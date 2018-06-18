@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<CasaDaVideira.Model.Database.Model.Categoria>
-@using Mvc.Model.Utils
+@using CasaDaVideira.Model.Database.Utils
 @{
     var usuario = LoginUtils.Usuario;
     ViewBag.Title = "Categorias";
@@ -12,7 +12,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
-                @if (usuario != null && usuario.Admin)
+                @if (usuario != null && usuario.Admin && item !=null)
                 {
                     <td>
                         @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |

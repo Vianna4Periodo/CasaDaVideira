@@ -29,6 +29,19 @@ namespace CasaDaVideira.Model.Database.Repository
             }
         }
         
+        public IEnumerable<Usuario> FindUsuariosByAdminStatus(bool isAdmin = true)
+        {
+            try
+            {
+                var users = this.Session.CreateCriteria(typeof(Usuario)).List<Usuario>().Where(f => f.Admin == isAdmin);
+                return users;
+
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public Usuario FindUserByEmail(string email)
         {
             try

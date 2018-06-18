@@ -48,7 +48,11 @@ namespace CasaDaVideira.Model.Database.Model
         public ProdutoMap()
         {
             //esta mapeando uma primarykey
-            Id(x => x.Id, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m =>
+            {
+                m.Generator(Generators.Guid);
+                m.Column("idProduto");
+            });
 
             Property(x => x.Nome);
             Property(x => x.DescricaoResumida);

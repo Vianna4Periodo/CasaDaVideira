@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = "Cadastro";
 }
-
+<script type="text/javascript">
+    function submitForm(btn) {
+        btn.disabled = true;
+        btn.submit();
+    }
+</script>
 <div id="modalCreateUser" role="dialog" class="login modal fade">
     <!-- login -->
     <div class="modal-dialog modal-sm">
@@ -48,9 +53,7 @@
                                 @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
                                 <input type="password" placeholder="Password Confirmation" required="">
                             </div>
-                            var valor = Model.Email == null ? "Cadastrar" : "Alterar";
-                            
-                            <input type="submit" value=@valor onclick="this.disabled=true;"/>
+                            <input type="submit" value="Cadastrar"/>
                         }
                     </div>
                 </div>

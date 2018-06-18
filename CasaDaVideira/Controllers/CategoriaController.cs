@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace CasaDaVideira.Controllers
 {
-    using Mvc.Model.Utils;
+    using CasaDaVideira.Model.Database.Utils;
 
     public class CategoriaController : Controller
     {
@@ -16,6 +16,7 @@ namespace CasaDaVideira.Controllers
         public ActionResult Index()
         {
             var categorias = DbConfig.Instance.CategoriaRepository.FindAll();
+            
             return View(categorias);
         }
 

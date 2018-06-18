@@ -55,9 +55,9 @@
             @Html.DisplayFor(modelItem => item.DtNascimento)
         </td>
         <td>
-            @Html.ActionLink("Editar", "EditUser", new { idUsuario = item.IdUsuario }) |
-            @Html.ActionLink("Detalhes", "DetailsUser", new { idUsuario = item.IdUsuario }) |
-            @Html.ActionLink("Apagar", "DeleteUser", new { idUsuario = item.IdUsuario })
+            @Html.ActionLink("Editar", "EditUser", new { idUsuario = item.Id }) |
+            @Html.ActionLink("Detalhes", "DetailsUser", new { idUsuario = item.Id }) |
+            @Html.ActionLink("Apagar", "DeleteUser", new { idUsuario = item.Id })
         </td>
     </tr>
 }

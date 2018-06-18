@@ -4,7 +4,7 @@ using System;
 using System.Web;
 using System.Web.Security;
 
-namespace Mvc.Model.Utils
+namespace CasaDaVideira.Model.Database.Utils
 {
     public class LoginUtils
     {

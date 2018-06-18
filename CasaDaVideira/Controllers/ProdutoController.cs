@@ -1,8 +1,10 @@
 ﻿using CasaDaVideira.Model.Database;
 using CasaDaVideira.Model.Database.Model;
-using Mvc.Model.Utils;
+using CasaDaVideira.Model.Database.Utils;
 using System;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace CasaDaVideira.Controllers
@@ -85,8 +87,30 @@ namespace CasaDaVideira.Controllers
         public ActionResult AddImagem(Guid idProduto)
         {
             Produto produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
-            var imagem = new Imagem(produto);
-            return View("AddImagem", "_Layout", imagem);
+            return View("AddImagem", produto);
+        }
+
+        public ActionResult InsereImagem(HttpPostedFileBase file, Guid idProduto)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
+                
+                // extract only the filename
+                var fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                var path = Path.Combine(Server.MapPath("~/images/uploads/produtos/"), fileName);
+                file.SaveAs(path);
+                var imagem = new Imagem()
+                {
+                    DataInclusao = DateTime.Now,
+                    Produto = produto,
+                    Caminho = path                    
+                };
+                DbConfig.Instance.ImagemRepository.Save(imagem);
+            }
+            // redirect back to the index action to show the form once again
+            return RedirectToAction("Index");
         }
 
         public ActionResult BuscarProduto(string buscaP)

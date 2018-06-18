@@ -33,7 +33,11 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public ImagemMap()
         {
-            Id(x => x.Id, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m =>
+            {
+                m.Generator(Generators.Guid);
+                m.Column("idImagem");
+            });
             Property(x => x.Caminho);
             Property(x => x.DataInclusao);
             Property(x => x.Ativo, m => m.NotNullable(true));

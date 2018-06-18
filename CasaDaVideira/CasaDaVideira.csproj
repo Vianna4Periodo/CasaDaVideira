@@ -317,6 +317,7 @@
     <Content Include="Views\Home\_CadastraAdmin.cshtml" />
     <Content Include="Views\Produto\_CadastraProduto.cshtml" />
     <Content Include="Views\Categoria\_CadastroCategoria.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -326,6 +327,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\uploads\produtos\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

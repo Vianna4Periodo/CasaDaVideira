@@ -25,7 +25,11 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public CarrinhoMap()
         {
-            Id(x => x.Id);
+            Id(x => x.Id, m =>
+            {
+                m.Generator(Generators.Guid);
+                m.Column("idCarrinho");
+            });
             Bag<Produto>(x => x.Produtos, 
                 m =>{
                         m.Table("Carrinho_has_Produtos");

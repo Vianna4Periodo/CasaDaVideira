@@ -1,5 +1,5 @@
 ﻿using CasaDaVideira.Model.Database;
-using Mvc.Model.Utils;
+using CasaDaVideira.Model.Database.Utils;
 using System;
 using System.Linq;
 using System.Web.Mvc;

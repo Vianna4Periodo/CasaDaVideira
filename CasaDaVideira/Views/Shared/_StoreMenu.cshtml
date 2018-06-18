@@ -1,16 +1,11 @@
 ﻿
-@using Mvc.Model.Utils
+@using CasaDaVideira.Model.Database.Utils
 
 @{
     var usuario = LoginUtils.Usuario;
 }
 <ul class="nav navbar-nav">
-    <li class="active">@Html.ActionLink("Home", "Index", "Home", htmlAttributes: new { @class = "act" })</li>
-    @if (usuario != null && usuario.Admin)
-    {
-        <li class="active">@Html.ActionLink("Clientes", "Index", "Usuario") </li>
-        <li class="active">@Html.ActionLink("Categorias", "Index", "Categoria") </li>
-    }
+    <li class="active">@Html.ActionLink("Home", "Index", "Home", htmlAttributes: new { @class = "act" })</li>    
     <li class="active">@Html.ActionLink("Produtos", "Index", "Produto") </li>
 
     <!-- Mega Menu -->

@@ -1,7 +1,7 @@
 ﻿using CasaDaVideira.Model.Database;
 using CasaDaVideira.Model.Database.Model;
 using CasaDaVideira.Model.Database.Utils;
-using Mvc.Model.Utils;
+using CasaDaVideira.Model.Database.Utils;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -15,8 +15,18 @@ namespace CasaDaVideira.Controllers
         {
             if (LoginUtils.Usuario.Admin)
             {
-                var usuarios = DbConfig.Instance.UsuarioRepository.FindAll();
+                var usuarios = DbConfig.Instance.UsuarioRepository.FindUsuariosByAdminStatus();
                 return View(usuarios);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ListarClientes()
+        {
+            if (LoginUtils.Usuario.Admin)
+            {
+                var clientes = DbConfig.Instance.UsuarioRepository.FindUsuariosByAdminStatus(false);
+                return View(clientes);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -83,7 +93,7 @@ namespace CasaDaVideira.Controllers
                 throw new Exception("Erro ao gravar o usuário");
             }
             LoginUtils.Logar(user.Email, user.Senha);
-            return PartialView("_LoginMenu",LoginUtils.Usuario);
+            return PartialView("_LoginMenu", LoginUtils.Usuario);
         }
 
         public ActionResult BuscarUsuario(string busca)
@@ -253,13 +263,13 @@ namespace CasaDaVideira.Controllers
                 u.Cpf = "";
             }
             return PartialView("_CreateUser", DbConfig.Instance.UsuarioRepository.Save(u));
-    }
+        }
 
-    public ActionResult Deslogar(Usuario user)
-    {
-        LoginUtils.Deslogar();
+        public ActionResult Deslogar(Usuario user)
+        {
+            LoginUtils.Deslogar();
 
-        return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
+        }
     }
-}
 }

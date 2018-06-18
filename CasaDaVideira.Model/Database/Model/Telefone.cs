@@ -27,7 +27,11 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public TelefoneMap()
         {
-            Id(x => x.Id, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m =>
+            {
+                m.Generator(Generators.Guid);
+                m.Column("idTelefone");
+            });
 
             Property(x => x.Ddd);
             Property(x => x.Numero);

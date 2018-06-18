@@ -39,7 +39,11 @@ namespace CasaDaVideira.Model.Database.Model
             public UsuarioMap()
             {
                 //esta mapeando uma primarykey
-                Id(x => x.Id, m => m.Generator(Generators.Guid));
+                Id(x => x.Id, m =>
+                {
+                    m.Generator(Generators.Guid);
+                    m.Column("idUsuario");
+                });
 
                 Property(x => x.Email, m =>
                 {
