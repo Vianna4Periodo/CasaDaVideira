@@ -21,12 +21,22 @@ namespace CasaDaVideira.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult Listar()
+        {
+            if (LoginUtils.Usuario.Admin)
+            {
+                var usuarios = DbConfig.Instance.UsuarioRepository.FindUsuariosByAdminStatus();
+                return View(usuarios);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult ListarClientes()
         {
             if (LoginUtils.Usuario.Admin)
             {
                 var clientes = DbConfig.Instance.UsuarioRepository.FindUsuariosByAdminStatus(false);
-                return View(clientes);
+                return View("Index", clientes);
             }
             return RedirectToAction("Index", "Home");
         }

@@ -42,6 +42,8 @@ namespace CasaDaVideira.Model.Database.Model
             Property(x => x.Cidade);
             Property(x => x.Cep);
             Property(x => x.Ativo, m => m.NotNullable(true));
+            Property(m => m.CreatedAt);
+            Property(m => m.UpdatedAt);
             ManyToOne(x => x.Usuario, m =>
             {
                 m.Column("idUsuario");

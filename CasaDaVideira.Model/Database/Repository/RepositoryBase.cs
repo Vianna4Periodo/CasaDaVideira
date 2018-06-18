@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using CasaDaVideira.Model.Database.Model;
+using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Linq;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace CasaDaVideira.Model.Database.Repository
 {
     //classe com tipo generico |  where T : class para garantir q é uma classe em isso pode usar qualquer coisa
-    public abstract class RepositoryBase<T> where T : class
+    public abstract class RepositoryBase<T> where T : EntityBase
     {
         public ISession Session;
 
@@ -42,6 +43,7 @@ namespace CasaDaVideira.Model.Database.Repository
         {
             try
             {
+                entity.UpdatedAt = DateTime.Now;
                 this.Session.Clear();
 
                 var transacao = this.Session.BeginTransaction();
@@ -62,6 +64,7 @@ namespace CasaDaVideira.Model.Database.Repository
         {
             try
             {
+                entity.UpdatedAt = DateTime.Now;
                 this.Session.Clear();
 
                 var transacao = this.Session.BeginTransaction();
@@ -82,6 +85,7 @@ namespace CasaDaVideira.Model.Database.Repository
         {
             try
             {
+                entity.UpdatedAt = DateTime.Now;
                 this.Session.Clear();
 
                 var transacao = this.Session.BeginTransaction();

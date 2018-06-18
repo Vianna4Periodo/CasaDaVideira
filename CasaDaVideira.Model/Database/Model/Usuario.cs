@@ -82,6 +82,8 @@ namespace CasaDaVideira.Model.Database.Model
                     m.NotNullable(false);
                 });
                 Property(x => x.Ativo, m => m.NotNullable(true));
+                Property(m => m.CreatedAt);
+                Property(m => m.UpdatedAt);
                 Bag<Telefone>(x => x.Telefones, m =>
                 {
                     m.Cascade(Cascade.All);

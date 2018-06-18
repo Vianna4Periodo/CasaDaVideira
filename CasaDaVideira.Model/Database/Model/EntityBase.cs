@@ -10,9 +10,12 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public virtual Guid Id { get; set; }
         public virtual bool Ativo  { get; set; }
+        public virtual DateTime UpdatedAt { get; set; }
+        public virtual DateTime CreatedAt { get; set; }
 
         public EntityBase()
         {
+            this.CreatedAt = DateTime.Now;
             this.Ativo = true;
         }
 

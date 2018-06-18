@@ -36,6 +36,8 @@ namespace CasaDaVideira.Model.Database.Model
                 m.Inverse(true);
             },
             r => r.OneToMany());
+            Property(m => m.CreatedAt);
+            Property(m => m.UpdatedAt);
         }
     }
 }

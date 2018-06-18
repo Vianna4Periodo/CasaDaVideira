@@ -41,6 +41,8 @@ namespace CasaDaVideira.Model.Database.Model
             Property(x => x.Caminho);
             Property(x => x.DataInclusao);
             Property(x => x.Ativo, m => m.NotNullable(true));
+            Property(m => m.CreatedAt);
+            Property(m => m.UpdatedAt);
             ManyToOne(x => x.Produto, m =>
             {
                 m.Cascade(Cascade.All);

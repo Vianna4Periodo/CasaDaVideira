@@ -64,6 +64,8 @@ namespace CasaDaVideira.Model.Database.Model
             Property(x => x.Oferta);
             Property(x => x.Classificacao);
             Property(x => x.Ativo, m => m.NotNullable(true));
+            Property(m => m.CreatedAt);
+            Property(m => m.UpdatedAt);
             Bag<Imagem>(x => x.Imagens, m =>
             {
                 m.Cascade(Cascade.All);

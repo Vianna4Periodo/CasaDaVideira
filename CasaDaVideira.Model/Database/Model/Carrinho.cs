@@ -44,7 +44,8 @@ namespace CasaDaVideira.Model.Database.Model
                 {
                     m.Column("idUsuario");
                 });
-
+            Property(m => m.CreatedAt);
+            Property(m => m.UpdatedAt);
         }
     }
 }
