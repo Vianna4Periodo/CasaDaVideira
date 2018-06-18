@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 namespace CasaDaVideira.Model.Database.Model
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Produto : EntityBase
     {
         private double preco;
-        public virtual Guid IdProduto { get; set; }
         public virtual string Nome { get; set; }
         public virtual string DescricaoResumida { get; set; }
         public virtual string DescricaoCompleta { get; set; }
@@ -21,6 +22,7 @@ namespace CasaDaVideira.Model.Database.Model
         public virtual IList<Imagem>  Imagens { get; set; }
 
         public virtual IList<Carrinho> Carrinhos { get; set; }
+        [DataType(DataType.Currency)]
         public virtual double Preco
         {
             get
@@ -46,7 +48,7 @@ namespace CasaDaVideira.Model.Database.Model
         public ProdutoMap()
         {
             //esta mapeando uma primarykey
-            Id(x => x.IdProduto, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m => m.Generator(Generators.Guid));
 
             Property(x => x.Nome);
             Property(x => x.DescricaoResumida);

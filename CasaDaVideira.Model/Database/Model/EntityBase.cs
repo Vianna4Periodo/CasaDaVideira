@@ -8,6 +8,7 @@ namespace CasaDaVideira.Model.Database.Model
 {
     public abstract class EntityBase 
     {
+        public virtual Guid Id { get; set; }
         public virtual bool Ativo  { get; set; }
 
         public EntityBase()

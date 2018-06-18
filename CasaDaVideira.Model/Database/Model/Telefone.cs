@@ -10,8 +10,6 @@ namespace CasaDaVideira.Model.Database.Model
 {
     public class Telefone : EntityBase
     {
-
-        public virtual Guid Id { get; set; }
         public virtual string Ddd { get; set; }
         public virtual string Numero { get; set; }
         public virtual string Tipo { get; set; }

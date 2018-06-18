@@ -7,7 +7,6 @@ namespace CasaDaVideira.Model.Database.Model
 {
     public class Categoria : EntityBase
     {
-        public virtual Guid IdCategoria { get; set; }
         public virtual string Nome { get; set; }
         public virtual IList<Produto> Produtos { get; set; }
 
@@ -21,7 +20,7 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public CategoriaMap()
         {
-            Id(x => x.IdCategoria, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m => m.Generator(Generators.Guid));
 
             Property(x => x.Nome);
             Property(x => x.Ativo, m => m.NotNullable(true));

@@ -10,7 +10,6 @@ namespace CasaDaVideira.Model.Database.Model
 {
     public class Usuario : EntityBase
     {
-        public virtual Guid IdUsuario { get; set; }
         [Required(ErrorMessage = "Email é obrigatorio", AllowEmptyStrings = false)]
         public virtual string Email { get; set; }
         [Required(ErrorMessage = "Senha é obrigatorio", AllowEmptyStrings = false)]
@@ -40,7 +39,7 @@ namespace CasaDaVideira.Model.Database.Model
             public UsuarioMap()
             {
                 //esta mapeando uma primarykey
-                Id(x => x.IdUsuario, m => m.Generator(Generators.Guid));
+                Id(x => x.Id, m => m.Generator(Generators.Guid));
 
                 Property(x => x.Email, m =>
                 {

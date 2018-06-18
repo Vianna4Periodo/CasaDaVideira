@@ -11,7 +11,6 @@ namespace CasaDaVideira.Model.Database.Model
 
     public class Carrinho : EntityBase
     {
-        public virtual  Guid IdCarrinho { get; set; }
         public virtual IList<Produto> Produtos { get; set; }
         public virtual Usuario Usuario { get; set; }
 
@@ -26,7 +25,7 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public CarrinhoMap()
         {
-            Id(x => x.IdCarrinho);
+            Id(x => x.Id);
             Bag<Produto>(x => x.Produtos, 
                 m =>{
                         m.Table("Carrinho_has_Produtos");

@@ -10,8 +10,6 @@ namespace CasaDaVideira.Model.Database.Model
 {
     public class Endereco : EntityBase
     {
-
-        public virtual Guid IdEndereco { get; set; }
         public virtual string Rua { get; set; }
         public virtual int Numero { get; set; }
         public virtual string Complemento { get; set; }
@@ -31,7 +29,7 @@ namespace CasaDaVideira.Model.Database.Model
     {
         public EnderecoMap()
         {
-            Id(x => x.IdEndereco, m => m.Generator(Generators.Guid));
+            Id(x => x.Id, m => m.Generator(Generators.Guid));
 
             Property(x => x.Rua);
             Property(x => x.Numero);
