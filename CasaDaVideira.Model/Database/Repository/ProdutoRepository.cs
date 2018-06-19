@@ -16,6 +16,11 @@ namespace CasaDaVideira.Model.Database.Repository
 
         }
 
+        public int CountProdutos()
+        {            
+            return this.Session.QueryOver<Produto>().RowCount();
+        }
+
         public override Produto Update(Produto entity)
         {
             return base.Update(entity);

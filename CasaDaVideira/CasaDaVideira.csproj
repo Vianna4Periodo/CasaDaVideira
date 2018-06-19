@@ -319,6 +319,7 @@
     <Content Include="Views\Categoria\_CadastroCategoria.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Produto\Listar.cshtml" />
+    <Content Include="Views\Produto\_ProdutosPaginados.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

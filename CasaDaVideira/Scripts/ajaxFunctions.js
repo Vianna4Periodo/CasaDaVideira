@@ -52,8 +52,7 @@ function cadastroClienteSucesso(data) {
 
     $("#modalCreateUser").modal("hide");
     $('body').removeClass('modal-open');
-    $('.modal.backdrop').remove();
-
+    
     var doc = new DOMParser().parseFromString(data, "text/html");
 
     var elemento = doc.getElementById("nomeUsuario").innerHTML + "!";
@@ -62,6 +61,7 @@ function cadastroClienteSucesso(data) {
 
     setToastr();
     toastr["success"]("Seu cadastro foi realizado com sucesso!", title);
+    $('.modal.backdrop').remove();
 }
 function loginSucesso(data) {
     var doc = new DOMParser().parseFromString(data, "text/html");

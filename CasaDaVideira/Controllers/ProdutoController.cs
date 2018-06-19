@@ -15,7 +15,12 @@ namespace CasaDaVideira.Controllers
         public ActionResult Index()
         {
             var produtos = DbConfig.Instance.ProdutoRepository.FindAll();
-
+            ViewBag.Categorias = DbConfig.Instance.CategoriaRepository.FindAll();
+            var qtdProdutos = DbConfig.Instance.ProdutoRepository.CountProdutos();
+            int paginas = qtdProdutos / 9;
+            if (qtdProdutos % 9 != 0)
+                paginas++;
+            ViewBag.QtdPaginas = paginas;
             return View(produtos);
         }
 
@@ -23,9 +28,9 @@ namespace CasaDaVideira.Controllers
         {
             if (LoginUtils.Usuario != null && LoginUtils.Usuario.Admin)
             {
-                var tipos = DbConfig.Instance.CategoriaRepository.FindAll();
+                var categs = DbConfig.Instance.CategoriaRepository.FindAll();
 
-                ViewBag.Categorias = new SelectList(tipos, "Id", "Nome");
+                ViewBag.Categorias = new SelectList(categs, "Id", "Nome");
 
                 return PartialView("_CadastraProduto", new Produto());
             }
