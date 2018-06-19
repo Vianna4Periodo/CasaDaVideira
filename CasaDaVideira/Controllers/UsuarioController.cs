@@ -277,7 +277,6 @@ namespace CasaDaVideira.Controllers
         public ActionResult Deslogar(Usuario user)
         {
             LoginUtils.Deslogar();
-
             return RedirectToAction("Index", "Home");
         }
     }
