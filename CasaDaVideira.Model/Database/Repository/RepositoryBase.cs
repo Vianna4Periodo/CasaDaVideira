@@ -22,7 +22,7 @@ namespace CasaDaVideira.Model.Database.Repository
 
         public virtual IList<T> FindAll()
         {
-            return this.Session.CreateCriteria(typeof(T)).List<T>();
+            return this.Session.Query<T>().Where(x => x.Ativo == true).ToList<T>();            
         }
 
         public T FindFirstById(Guid id)

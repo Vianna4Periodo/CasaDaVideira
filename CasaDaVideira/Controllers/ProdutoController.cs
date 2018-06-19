@@ -22,8 +22,12 @@ namespace CasaDaVideira.Controllers
                 paginas++;
             ViewBag.QtdPaginas = paginas;
             return View(produtos);
-        }
-
+        }    
+        public ActionResult Listar()
+        {
+            var produtos = DbConfig.Instance.ProdutoRepository.FindAll();
+            return View(produtos);
+        }    
         public PartialViewResult CreateProduto()
         {
             if (LoginUtils.Usuario != null && LoginUtils.Usuario.Admin)
@@ -53,24 +57,22 @@ namespace CasaDaVideira.Controllers
 
             DbConfig.Instance.ProdutoRepository.Update(p);
 
-            return View("Index", DbConfig.Instance.ProdutoRepository.FindAll());
+            return View("Listar", DbConfig.Instance.ProdutoRepository.FindAll());
         }
         public ActionResult EditProduto(Guid idProduto)
         {
             var prod = DbConfig.Instance.ProdutoRepository.FindAll().FirstOrDefault(f => f.Id == idProduto);
 
-            return View(prod);
+            return View("_EditProduto",prod);
         }
-
         public ActionResult DeleteProduto(Guid idProduto)
         {
             var prod = DbConfig.Instance.ProdutoRepository.FindAll().FirstOrDefault(f => f.Id == idProduto);
+            prod.Ativo = false;
+            DbConfig.Instance.ProdutoRepository.Update(prod);
 
-            DbConfig.Instance.ProdutoRepository.Delete(prod);
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Listar");
         }
-
         public ActionResult DetailsProduto(Guid idProduto)
         {
             var prod = DbConfig.Instance.ProdutoRepository
@@ -78,7 +80,6 @@ namespace CasaDaVideira.Controllers
 
             return View(prod);
         }
-
         public ActionResult GravarProduto(Produto prod, Guid idCategoria)
         {
             prod.Categoria = DbConfig.Instance.CategoriaRepository.FindFirstById(idCategoria);
@@ -88,36 +89,40 @@ namespace CasaDaVideira.Controllers
             return RedirectToAction("Index");
 
         }
-
-        public ActionResult AddImagem(Guid idProduto)
+        public PartialViewResult AddImagem(Guid idProduto)
         {
             Produto produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
-            return View("AddImagem", produto);
-        }
-
+            return PartialView("AddImagem", produto);
+        }    
         public ActionResult InsereImagem(HttpPostedFileBase file, Guid idProduto)
         {
             if (file != null && file.ContentLength > 0)
             {
                 var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
+
                 
                 // extract only the filename
                 var fileName = Path.GetFileName(file.FileName);
+
+                
                 // store the file inside ~/App_Data/uploads folder
                 var path = Path.Combine(Server.MapPath("~/images/uploads/produtos/"), fileName);
                 file.SaveAs(path);
+
+                var caminho = "images/uploads/produtos/" + fileName;
                 var imagem = new Imagem()
                 {
                     DataInclusao = DateTime.Now,
                     Produto = produto,
-                    Caminho = path                    
+                    Caminho = caminho                    
                 };
                 DbConfig.Instance.ImagemRepository.Save(imagem);
+                produto.Imagens.Add(imagem);
+                DbConfig.Instance.ProdutoRepository.Update(produto);
             }
             // redirect back to the index action to show the form once again
             return RedirectToAction("Index");
         }
-
         public ActionResult BuscarProduto(string buscaP)
         {
             if (buscaP == "")
@@ -126,6 +131,12 @@ namespace CasaDaVideira.Controllers
             }
             var prod = DbConfig.Instance.ProdutoRepository.FindAll().Where(f => f.Nome.ToLower().Contains(buscaP.ToLower()));
             return View("Index", prod);
+        }
+
+        public ActionResult DetalheProduto(Guid idProduto)
+        {
+            var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
+            return View(produto);
         }
         
     }

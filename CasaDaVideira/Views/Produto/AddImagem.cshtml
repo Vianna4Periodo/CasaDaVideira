@@ -1,25 +1,32 @@
 ﻿@model CasaDaVideira.Model.Database.Model.Produto
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<div id="modalAddImagem" role="dialog" class="login modal fade">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modalLogin">&times;</button>
+        <div class="modal-body">
+            <h4>Imagem do produto @Model.Nome</h4>
+            <div class="form-horizontal">
+                @using (Html.BeginForm("InsereImagem", "Produto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="modal-dialog modal-sm">
+                        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm("InsereImagem", "Produto", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-<div class="form-horizontal">
-    <h4>Imagem do produto @Model.Nome</h4>
+                        @Html.Hidden("idProduto", Model.Id)
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <input type="file" name="file" />
+                        </div>
 
-    @Html.AntiForgeryToken()
-
-    @Html.Hidden("idProduto", Model.Id)
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <input type="file" name="file" />
-    <input type="submit" value="OK" />
-    
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Enviar" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>
-}
+
+

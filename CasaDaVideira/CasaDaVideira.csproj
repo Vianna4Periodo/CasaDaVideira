@@ -298,14 +298,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Produto\DetailsProduto.cshtml" />
     <Content Include="Views\Produto\Index.cshtml" />
     <Content Include="Scripts\jquery-1.11.1.min.map" />
     <Content Include="Scripts\minicart.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Categoria\Index.cshtml" />
-    <Content Include="Views\Produto\EditProduto.cshtml" />
     <Content Include="Views\Home\_Configuracoes.cshtml" />
     <Content Include="Views\Shared\_Carrossel.cshtml" />
     <Content Include="Views\Produto\AddImagem.cshtml" />
@@ -320,6 +318,8 @@
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Produto\Listar.cshtml" />
     <Content Include="Views\Produto\_ProdutosPaginados.cshtml" />
+    <Content Include="Views\Produto\_EditProduto.cshtml" />
+    <Content Include="Views\Produto\DetalheProduto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

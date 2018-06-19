@@ -16,6 +16,11 @@ function refresh() {
 function showModalLogin() {
     $("#modalLogin").modal("show");
 }
+
+function exibirModalUploadImagem(){
+    $("#modalAddImagem").modal("show");
+}
+
 function closeModalLogin() {
     $("#modalLogin").modal("hide");
     $('body').removeClass('modal-open');

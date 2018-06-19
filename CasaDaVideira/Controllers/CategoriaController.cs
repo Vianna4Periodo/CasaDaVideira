@@ -33,9 +33,12 @@ namespace CasaDaVideira.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(string s)
+        public ActionResult Delete(Guid idCategoria)
         {
-            throw new NotImplementedException();
+            var categoria = DbConfig.Instance.CategoriaRepository.FindFirstById(idCategoria);
+            categoria.Ativo = false;
+            DbConfig.Instance.CategoriaRepository.Update(categoria);
+            return RedirectToAction("Index");
         }
     }
 }

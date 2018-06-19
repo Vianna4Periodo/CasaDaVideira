@@ -15,8 +15,7 @@
                 @if (usuario != null && usuario.Admin && item !=null)
                 {
                     <td>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Apagar", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Apagar", "Delete", new { idCategoria = item.Id })
                     </td>
                 }
             </tr>

@@ -5,6 +5,7 @@
     var usuario = LoginUtils.Usuario;
 }
 <div class="container">
+
     <table class="table">
         <tr>
             <th> @Html.DisplayNameFor(model => model.Nome)</th>
@@ -26,15 +27,14 @@
                     <td>
                         @Html.ActionLink("Editar", "EditProduto", new { idProduto = item.Id }, new { @class = "btn btn-info" })|
                         @Html.ActionLink("Apagar", "DeleteProduto", new { idProduto = item.Id }, new { @class = "btn btn-danger" }) |
-                        @Html.ActionLink("Adicionar Imagem", "AddImagem", new { idProduto = item.Id }, new { @class = "btn btn-success" })
-                        @*<a data-ajax="true"
+                        <a data-ajax="true"
                             data-ajax-loading="#loadAjax"
                             data-ajax-method="post"
                             data-ajax-mode="replace"
-                            data-ajax-success="exibirDlgSaidaEstadia"
-                            data-ajax-update="#telaSaida"
+                            data-ajax-success="exibirModalUploadImagem"
+                            data-ajax-update="#modaldiv"
                             href="@Url.Action("AddImagem", "Produto", new { idProduto = item.Id, info = true})"
-                            class="btn btn-success">Adicionar Imagem</a>*@
+                            class="btn btn-success">Adicionar Imagem</a>
                     </td>
                 }
             </tr>

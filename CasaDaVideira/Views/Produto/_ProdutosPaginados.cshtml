@@ -24,8 +24,17 @@
                             <figure>
                                 <div class="snipcart-item block">
                                     <div class="snipcart-thumb">
-                                        <a href="single.html"><img title=" " alt=" " src="images/gu1.png"></a>
-                                        <p>@produtos[i].Nome</p>
+                                        @if (produtos[i].Imagens.Count > 0)
+                                        {
+                                            <a href='@Url.Action("DetalheProduto", "Produto",  new { idProduto = produtos[i].Id})'>
+                                                <img title=" " alt=" " src="@produtos[i].Imagens[0].Caminho" width="150px" height="150px">
+                                            </a>
+                                            <a href="single.html"></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#"><img title="" alt="" src="" /></a>
+                                        }<p>@produtos[i].Nome</p>
                                         <h4>R$@produtos[i].Preco <span>R$@produtos[i].PrecoAntigo</span></h4>
                                     </div>
                                     <div class="snipcart-details top_brand_home_details">
@@ -34,13 +43,13 @@
                                                 <input type="hidden" name="cmd" value="_cart">
                                                 <input type="hidden" name="add" value="1">
                                                 <input type="hidden" name="business" value=" ">
-                                                <input type="hidden" name="item_name" value="Fortune Sunflower Oil">
-                                                <input type="hidden" name="amount" value="35.99">
-                                                <input type="hidden" name="discount_amount" value="1.00">
-                                                <input type="hidden" name="currency_code" value="USD">
+                                                <input type="hidden" name="item_name" value="@produtos[i].Nome">
+                                                <input type="hidden" name="amount" value="@produtos[i].Preco">
+                                                <input type="hidden" name="discount_amount" value="@produtos[i].PrecoAntigo-@produtos[i].Preco">
+                                                <input type="hidden" name="currency_code" value="BRL">
                                                 <input type="hidden" name="return" value=" ">
                                                 <input type="hidden" name="cancel_return" value=" ">
-                                                <input type="submit" name="submit" value="Add to cart" class="button">
+                                                <input type="submit" name="submit" value="Comprar" class="button">
                                             </fieldset>
                                         </form>
                                     </div>
