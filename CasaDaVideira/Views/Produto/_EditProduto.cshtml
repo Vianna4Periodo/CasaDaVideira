@@ -3,22 +3,12 @@
 @using (Html.BeginForm("UpdateProduto", "Produto", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+<div class="container">
     <div class="form-horizontal">
         <h4>Produto</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Ativo)
-                    @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.Id)        
 
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -58,23 +48,32 @@
                 @Html.EditorFor(model => model.Qtd, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Qtd, "", new { @class = "text-danger" })
             </div>
-        </div>        
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Oferta, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Oferta)
-                    @Html.ValidationMessageFor(model => model.Oferta, "", new { @class = "text-danger" })
-                </div>
+                <span>@Html.CheckBoxFor(m => Model.Oferta)</span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Classificacao, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Classificacao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Classificacao, "", new { @class = "text-danger" })
+                <div class="rating1">
+                    <span class="starRating">
+                        <input id="rating5" type="radio" name="rating" value="5">
+                        <label for="rating5">5</label>
+                        <input id="rating4" type="radio" name="rating" value="4" checked="true">
+                        <label for="rating4">4</label>
+                        <input id="rating3" type="radio" name="rating" value="3">
+                        <label for="rating3">3</label>
+                        <input id="rating2" type="radio" name="rating" value="2">
+                        <label for="rating2">2</label>
+                        <input id="rating1" type="radio" name="rating" value="1">
+                        <label for="rating1">1</label>
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -92,8 +91,7 @@
             </div>
         </div>
     </div>
+</div>
+
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

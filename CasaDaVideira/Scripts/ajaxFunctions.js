@@ -9,22 +9,18 @@
         "extendedTimeOut": "1000",
     }
 }
-
 function refresh() {
     window.location.reload();
 }
 function showModalLogin() {
     $("#modalLogin").modal("show");
 }
-
 function exibirModalUploadImagem(){
     $("#modalAddImagem").modal("show");
 }
-
 function showModalPesquisa() {
     $("#modalPesquisa").modal("show");
 }
-
 function pesquisaGravadoSucesso(data) {
     $("#modalPesquisa").modal("hide");
     $('body').removeClass('modal-open');
@@ -40,7 +36,6 @@ function pesquisaGravadoSucesso(data) {
     setToastr();
     toastr["info"]("Você ganhou 10 pontos!", title);
 }
-
 function falhaGravarPesquisa() {
     $("#modalPesquisa").modal("hide");
     $('body').removeClass('modal-open');
@@ -49,7 +44,6 @@ function falhaGravarPesquisa() {
     setToastr();
     toastr["fail"]("Houve um erro ao gravar a pesquisa!", "Ops!");
 }
-
 function closeModalLogin() {
     $("#modalLogin").modal("hide");
     $('body').removeClass('modal-open');

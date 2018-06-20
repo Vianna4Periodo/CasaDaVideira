@@ -65,6 +65,17 @@ namespace CasaDaVideira.Controllers
 
             return View("_EditProduto",prod);
         }
+        public PartialViewResult FiltroCategoria(Guid idCategoria)
+        {
+            var produtos = DbConfig.Instance.ProdutoRepository.FindAllByCategoria(idCategoria);
+            ViewBag.Categorias = DbConfig.Instance.CategoriaRepository.FindAll();
+            var qtdProdutos = produtos.Count();
+            int paginas = qtdProdutos / 9;
+            if (qtdProdutos % 9 != 0)
+                paginas++;
+            ViewBag.QtdPaginas = paginas;
+            return PartialView("_ProdutosPaginados", produtos);
+        }
         public ActionResult DeleteProduto(Guid idProduto)
         {
             var prod = DbConfig.Instance.ProdutoRepository.FindAll().FirstOrDefault(f => f.Id == idProduto);
@@ -87,8 +98,8 @@ namespace CasaDaVideira.Controllers
             DbConfig.Instance.ProdutoRepository.Save(prod);
             //return View("Telefones");
             return RedirectToAction("Index");
-
         }
+        
         public PartialViewResult AddImagem(Guid idProduto)
         {
             Produto produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
@@ -123,21 +134,24 @@ namespace CasaDaVideira.Controllers
             // redirect back to the index action to show the form once again
             return RedirectToAction("Index");
         }
-        public ActionResult BuscarProduto(string buscaP)
+        public ActionResult BuscarProduto(string search)
         {
-            if (buscaP == "")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            var prod = DbConfig.Instance.ProdutoRepository.FindAll().Where(f => f.Nome.ToLower().Contains(buscaP.ToLower()));
-            return View("Index", prod);
+            var prods = DbConfig.Instance.ProdutoRepository.FindByName(search);
+            ViewBag.Categorias = DbConfig.Instance.CategoriaRepository.FindAll();
+            var qtdProdutos = DbConfig.Instance.ProdutoRepository.CountProdutos();
+            int paginas = qtdProdutos / 9;
+            if (qtdProdutos % 9 != 0)
+                paginas++;
+            ViewBag.QtdPaginas = paginas;
+            if (prods.Count() > 0)
+                return View("Index", prods);
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult DetalheProduto(Guid idProduto)
         {
             var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
             return View(produto);
-        }
-        
+        }        
     }
 }

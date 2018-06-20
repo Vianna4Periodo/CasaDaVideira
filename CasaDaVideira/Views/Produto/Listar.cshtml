@@ -24,18 +24,18 @@
                 <td>@Html.DisplayFor(modelItem => item.Qtd)</td>
                 @if (usuario != null && usuario.Admin)
                 {
-                    <td>
-                        @Html.ActionLink("Editar", "EditProduto", new { idProduto = item.Id }, new { @class = "btn btn-info" })|
-                        @Html.ActionLink("Apagar", "DeleteProduto", new { idProduto = item.Id }, new { @class = "btn btn-danger" }) |
-                        <a data-ajax="true"
-                            data-ajax-loading="#loadAjax"
-                            data-ajax-method="post"
-                            data-ajax-mode="replace"
-                            data-ajax-success="exibirModalUploadImagem"
-                            data-ajax-update="#modaldiv"
-                            href="@Url.Action("AddImagem", "Produto", new { idProduto = item.Id, info = true})"
-                            class="btn btn-success">Adicionar Imagem</a>
-                    </td>
+                <td>                  
+                    @Html.ActionLink("Editar", "EditProduto", new { idProduto = item.Id }, new { @class = "btn btn-info" })|
+                    @Html.ActionLink("Apagar", "DeleteProduto", new { idProduto = item.Id }, new { @class = "btn btn-danger" }) |
+                    <a data-ajax="true"
+                       data-ajax-loading="#loadAjax"
+                       data-ajax-method="post"
+                       data-ajax-mode="replace"
+                       data-ajax-success="exibirModalUploadImagem"
+                       data-ajax-update="#modaldiv"
+                       href="@Url.Action("AddImagem", "Produto", new { idProduto = item.Id, info = true})"
+                       class="btn btn-success">Adicionar Imagem</a>
+                </td>
                 }
             </tr>
         }

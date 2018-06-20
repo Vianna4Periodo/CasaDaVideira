@@ -13,9 +13,9 @@
                     <span class="starRating">
                         <input id="rating5" type="radio" name="rating" value="5">
                         <label for="rating5">5</label>
-                        <input id="rating4" type="radio" name="rating" value="4">
+                        <input id="rating4" type="radio" name="rating" value="4" checked="true">
                         <label for="rating4">4</label>
-                        <input id="rating3" type="radio" name="rating" value="3" checked="">
+                        <input id="rating3" type="radio" name="rating" value="3">
                         <label for="rating3">3</label>
                         <input id="rating2" type="radio" name="rating" value="2">
                         <label for="rating2">2</label>
@@ -31,7 +31,10 @@
                 </div>
                 <div class="snipcart-item block">
                     <div class="snipcart-thumb agileinfo_single_right_snipcart">
-                        <h4 class="m-sing">R$@Model.Preco <span>R$@Model.PrecoAntigo</span></h4>
+                        <h4 class="m-sing">
+                            R$@Model.Preco @if (Model.Oferta)
+                            {<span>R$@Model.PrecoAntigo</span>}
+                        </h4>
                     </div>
                     <div class="snipcart-details agileinfo_single_right_details">
                         <form action="#" method="post">
@@ -41,17 +44,18 @@
                                 <input type="hidden" name="business" value=" ">
                                 <input type="hidden" name="item_name" value="@Model.Nome">
                                 <input type="hidden" name="amount" value="@Model.Preco">
-                                <input type="hidden" name="discount_amount" value="@Model.PrecoAntigo-@Model.Preco">
-                                <input type="hidden" name="currency_code" value="BRL">
-                                <input type="hidden" name="return" value=" ">
-                                <input type="hidden" name="cancel_return" value=" ">
-                                <input type="submit" name="submit" value="Comprar" class="button">
-                            </fieldset>
+                                @if (Model.Oferta)
+                                {<input type="hidden" name="discount_amount" value="@Model.PrecoAntigo-@Model.Preco">}
+                                    <input type="hidden" name="currency_code" value="BRL">
+                                    <input type="hidden" name="return" value=" ">
+                                    <input type="hidden" name="cancel_return" value=" ">
+                                    <input type="submit" name="submit" value="Comprar" class="button">
+                                </fieldset>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="clearfix"> </div>
+            <div class="clearfix"></div>
         </div>
     </div>
 </div>

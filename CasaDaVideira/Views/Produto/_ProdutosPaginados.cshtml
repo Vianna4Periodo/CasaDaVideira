@@ -27,7 +27,7 @@
                                         @if (produtos[i].Imagens.Count > 0)
                                         {
                                             <a href='@Url.Action("DetalheProduto", "Produto",  new { idProduto = produtos[i].Id})'>
-                                                <img title=" " alt=" " src="@produtos[i].Imagens[0].Caminho" width="150px" height="150px">
+                                                <img title=" " alt=" " src="@produtos[i].Imagens[0].Caminho" width="150" height="150">
                                             </a>
                                             <a href="single.html"></a>
                                         }
@@ -35,7 +35,8 @@
                                         {
                                             <a href="#"><img title="" alt="" src="" /></a>
                                         }<p>@produtos[i].Nome</p>
-                                        <h4>R$@produtos[i].Preco <span>R$@produtos[i].PrecoAntigo</span></h4>
+                                         <h4>R$@produtos[i].Preco @if (produtos[i].Oferta)
+                                                                                 {<span> R$@produtos[i].PrecoAntigo</span>}</h4>
                                     </div>
                                     <div class="snipcart-details top_brand_home_details">
                                         <form action="#" method="post">
@@ -45,7 +46,8 @@
                                                 <input type="hidden" name="business" value=" ">
                                                 <input type="hidden" name="item_name" value="@produtos[i].Nome">
                                                 <input type="hidden" name="amount" value="@produtos[i].Preco">
-                                                <input type="hidden" name="discount_amount" value="@produtos[i].PrecoAntigo-@produtos[i].Preco">
+                                                @if (produtos[i].Oferta)
+                                                {<input type="hidden" name="discount_amount" value="@produtos[i].PrecoAntigo-@produtos[i].Preco">}
                                                 <input type="hidden" name="currency_code" value="BRL">
                                                 <input type="hidden" name="return" value=" ">
                                                 <input type="hidden" name="cancel_return" value=" ">

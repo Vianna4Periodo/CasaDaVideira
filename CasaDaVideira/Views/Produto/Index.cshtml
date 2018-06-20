@@ -16,7 +16,17 @@
                     <ul>
                         @foreach (Categoria item in categorias)
                         {
-                        <li><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i>@item.Nome</a></li>
+
+                            <li>
+                                <a data-ajax="true"
+                                   data-ajax-loading="#loadAjax"
+                                   data-ajax-method="post"
+                                   data-ajax-mode="replace"
+                                   data-ajax-update="#produtospaginados"
+                                   href="@Url.Action("FiltroCategoria", "Produto", new { idCategoria = item.Id })">
+                                    <i class="fa fa-arrow-right" aria-hidden="true"></i>@item.Nome
+                                </a>
+                            </li>
                         }
                     </ul>
 
@@ -39,7 +49,7 @@
                     <div class="clearfix"> </div>
                 </div>
             </div>
-            <div>
+            <div id="produtospaginados">
                 @Html.Partial("_ProdutosPaginados", Model)
             </div>
             <nav class="numbering">

@@ -25,5 +25,17 @@ namespace CasaDaVideira.Model.Database.Repository
         {
             return base.Update(entity);
         }
+
+        public IEnumerable<Produto> FindAllByCategoria(Guid idCategoria)
+        {
+            var produtos = this.Session.Query<Produto>().Where(x => x.Ativo == true && x.Categoria.Id == idCategoria).ToList<Produto>();
+            return produtos;
+        }
+
+        public IEnumerable<Produto> FindByName(string name)
+        {
+            var produtos = this.Session.Query<Produto>().Where(f => f.Nome.ToLower().Contains(name.ToLower())).ToList<Produto>();
+            return produtos;
+        }
     }
 }
