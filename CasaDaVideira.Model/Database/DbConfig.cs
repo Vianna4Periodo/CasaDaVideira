@@ -25,6 +25,7 @@ namespace CasaDaVideira.Model.Database
         public EnderecoRepository EnderecoRepository { get; set; }
         public CategoriaRepository CategoriaRepository { get; set; }
         public ImagemRepository ImagemRepository { get; set; }
+        public PesquisaRepository PesquisaRepository { get; set; }
         private DbConfig()
         {
             Conectar();
@@ -34,6 +35,7 @@ namespace CasaDaVideira.Model.Database
             this.ProdutoRepository = new ProdutoRepository(Session);
             this.EnderecoRepository = new EnderecoRepository(Session);
             this.CategoriaRepository = new CategoriaRepository(Session);
+            this.PesquisaRepository = new PesquisaRepository(Session);
         }
 
         public static DbConfig Instance

@@ -320,6 +320,7 @@
     <Content Include="Views\Produto\_ProdutosPaginados.cshtml" />
     <Content Include="Views\Produto\_EditProduto.cshtml" />
     <Content Include="Views\Produto\DetalheProduto.cshtml" />
+    <Content Include="Views\Usuario\_Pesquisa.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

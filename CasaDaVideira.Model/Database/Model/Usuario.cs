@@ -26,7 +26,8 @@ namespace CasaDaVideira.Model.Database.Model
         public virtual IList<Telefone> Telefones { get; set; }
         public virtual IList<Endereco> Enderecos { get; set; }
         public virtual bool Admin { get; set; }
-        public virtual Carrinho Carrinho { get; set; } 
+        public virtual Carrinho Carrinho { get; set; }
+        public virtual Pesquisa Pesquisa { get; set; }
 
         public Usuario() : base()
         {
@@ -34,6 +35,11 @@ namespace CasaDaVideira.Model.Database.Model
             this.Enderecos = new List<Endereco>();
         }
 
+        public virtual bool respondeuPesquisa()
+        {
+            var respondeu = DbConfig.Instance.PesquisaRepository.UsuarioJaRespondeu(this.Id);
+            return respondeu;
+        }
         public class UsuarioMap : ClassMapping<Usuario>
         {
             public UsuarioMap()
@@ -94,7 +100,5 @@ namespace CasaDaVideira.Model.Database.Model
                 r => r.OneToMany());
             }
         }
-
     }
-
 }

@@ -21,6 +21,35 @@ function exibirModalUploadImagem(){
     $("#modalAddImagem").modal("show");
 }
 
+function showModalPesquisa() {
+    $("#modalPesquisa").modal("show");
+}
+
+function pesquisaGravadoSucesso(data) {
+    $("#modalPesquisa").modal("hide");
+    $('body').removeClass('modal-open');
+    $('.modal.backdrop').remove();
+
+    var doc = new DOMParser().parseFromString(data, "text/html");
+
+    var elemento = doc.getElementById("nomeUsuario").innerHTML + "!";
+    var nome = elemento.split(" ");
+    var title = "Obrigado ".concat(nome[0]);
+    title.concat("!");
+
+    setToastr();
+    toastr["info"]("Você ganhou 10 pontos!", title);
+}
+
+function falhaGravarPesquisa() {
+    $("#modalPesquisa").modal("hide");
+    $('body').removeClass('modal-open');
+    $('.modal.backdrop').remove();
+
+    setToastr();
+    toastr["fail"]("Houve um erro ao gravar a pesquisa!", "Ops!");
+}
+
 function closeModalLogin() {
     $("#modalLogin").modal("hide");
     $('body').removeClass('modal-open');

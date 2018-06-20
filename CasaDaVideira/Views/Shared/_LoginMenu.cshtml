@@ -47,8 +47,24 @@ else
                 <div class="multi-gd-img">
                     <ul class="multi-column-dropdown">
                         <h6>Opções</h6>
+
                         <li>@Html.ActionLink("Editar Cadastro", "DetailsUser", "Usuario")</li>
-                        <li>@Html.ActionLink("Sair", "Deslogar", "Usuario")</li>                        
+                        @if (!@usuario.respondeuPesquisa())
+                        {
+                            <li>
+                                <a data-ajax="true"
+                                   data-ajax-loading="#loadAjax"
+                                   data-ajax-method="post"
+                                   data-ajax-mode="replace"
+                                   data-ajax-success="showModalPesquisa"
+                                   data-ajax-failure="error"
+                                   data-ajax-update="#modaldiv"
+                                   href="@Url.Action("PesquisaUser", "Usuario")">
+                                    Responder pesquisa
+                                </a>
+                            </li>
+                        }
+                        <li>@Html.ActionLink("Sair", "Deslogar", "Usuario")</li>
                         @if (!LoginUtils.Usuario.Admin)
                         {
                             <li><p>Você possui @LoginUtils.Usuario.Pontos pontos</p></li>

@@ -257,7 +257,20 @@ namespace CasaDaVideira.Controllers
                 throw new Exception("Erro ao logar! ", ex);
             }
         }
+        public PartialViewResult PesquisaUser()
+        {
+            return PartialView("_Pesquisa", new Pesquisa());
+        }
 
+        public PartialViewResult GravarPesquisa(Pesquisa pesquisa)
+        {
+            var usuario = LoginUtils.Usuario;
+            usuario.Pontos += 10;
+            DbConfig.Instance.UsuarioRepository.Update(usuario);
+            pesquisa.Usuario = usuario;
+            DbConfig.Instance.PesquisaRepository.SaveOrUpdate(pesquisa);        
+            return PartialView("_LoginMenu");
+        }
         public PartialViewResult CadastraAdmin(string email, string senha)
         {
             var u = new Usuario();
