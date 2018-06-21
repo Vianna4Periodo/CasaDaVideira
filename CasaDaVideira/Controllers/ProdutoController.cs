@@ -176,17 +176,17 @@ namespace CasaDaVideira.Controllers
             return View(produto);
         }        
 
-        public PartialViewResult AddProduto(Guid idCarrinho, Guid idProduto)
+        public PartialViewResult AddProdutoToCart(Guid idProduto)
         {
-            var carrinho = DbConfig.Instance.CarrinhoRepository.FindFirstById(idCarrinho);
+            //var carrinho = DbConfig.Instance.CarrinhoRepository.FindFirstById(idCarrinho);
             var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
             if(produto.Qtd > 0)
             {
-                carrinho.Produtos.Add(produto);
+              //  carrinho.Produtos.Add(produto);
                 produto.Qtd--;
                 DbConfig.Instance.ProdutoRepository.Update(produto);
             }
-            DbConfig.Instance.CarrinhoRepository.Update(carrinho);
+            //DbConfig.Instance.CarrinhoRepository.Update(carrinho);
             return PartialView("_ProdutosPaginados", DbConfig.Instance.ProdutoRepository.FindAll());
         }
     }

@@ -25,8 +25,6 @@ namespace CasaDaVideira.Model.Database.Utils
             }
             set { _usuario = value; }
         }
-
-
         public static Usuario Logar(string login, string senha)
         {
             try
