@@ -29,12 +29,13 @@ namespace CasaDaVideira.Model.Database.Model
         public virtual Carrinho Carrinho { get; set; }
         public virtual Pesquisa Pesquisa { get; set; }
 
-        public virtual BuscaRealizada BuscaRealizada { get; set; }
+        public virtual IList<BuscaRealizada> BuscasRealizadas { get; set; }
 
         public Usuario() : base()
         {
             this.Telefones = new List<Telefone>();
             this.Enderecos = new List<Endereco>();
+            this.BuscasRealizadas = new List<BuscaRealizada>();
         }
 
         public virtual bool respondeuPesquisa()
@@ -100,7 +101,7 @@ namespace CasaDaVideira.Model.Database.Model
                     m.Inverse(true);
                 },
                 r => r.OneToMany());
-                Bag<BuscaRealizada>(x => x.BuscaRealizada, m =>
+                Bag<BuscaRealizada>(x => x.BuscasRealizadas, m =>
                         {
                             m.Cascade(Cascade.All);
                             m.Key(k => k.Column("idUsuario"));

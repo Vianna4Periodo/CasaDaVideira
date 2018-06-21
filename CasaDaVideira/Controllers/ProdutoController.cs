@@ -136,6 +136,14 @@ namespace CasaDaVideira.Controllers
         }
         public ActionResult BuscarProduto(string search)
         {
+            var user = LoginUtils.Usuario;
+            var br = new BuscaRealizada();
+            br.Busca = search;
+            br.Usuario = user;
+            user.BuscasRealizadas.Add(br);
+            DbConfig.Instance.BuscaRealizadaRepository.Save(br);
+            DbConfig.Instance.UsuarioRepository.Update(user);
+            
             var prods = DbConfig.Instance.ProdutoRepository.FindByName(search);
             ViewBag.Categorias = DbConfig.Instance.CategoriaRepository.FindAll();
             var qtdProdutos = DbConfig.Instance.ProdutoRepository.CountProdutos();

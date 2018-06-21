@@ -69,6 +69,7 @@
     <Compile Include="Database\Model\Produto.cs" />
     <Compile Include="Database\Model\Telefone.cs" />
     <Compile Include="Database\Model\Usuario.cs" />
+    <Compile Include="Database\Repository\BuscaRealizadaRepository.cs" />
     <Compile Include="Database\Repository\CarrinhoRepository.cs" />
     <Compile Include="Database\Repository\CategoriaRepository.cs" />
     <Compile Include="Database\Repository\EnderecoRepository.cs" />
