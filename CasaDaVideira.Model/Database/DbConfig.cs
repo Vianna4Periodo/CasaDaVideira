@@ -28,9 +28,12 @@ namespace CasaDaVideira.Model.Database
         public PesquisaRepository PesquisaRepository { get; set; }
         public CarrinhoRepository CarrinhoRepository { get; set; }
         public PedidoRepository PedidoRepository { get; set; }
+
+        public BuscaRealizadaRepository BuscaRealizadaRepository { get; set; }
         private DbConfig()
         {
             Conectar();
+            this.BuscaRealizadaRepository = new BuscaRealizadaRepository(Session);
             this.CarrinhoRepository = new CarrinhoRepository(Session);
             this.PedidoRepository = new PedidoRepository(Session);
             this.ImagemRepository = new ImagemRepository(Session);

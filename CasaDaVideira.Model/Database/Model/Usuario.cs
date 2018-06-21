@@ -29,6 +29,8 @@ namespace CasaDaVideira.Model.Database.Model
         public virtual Carrinho Carrinho { get; set; }
         public virtual Pesquisa Pesquisa { get; set; }
 
+        public virtual BuscaRealizada BuscaRealizada { get; set; }
+
         public Usuario() : base()
         {
             this.Telefones = new List<Telefone>();
@@ -98,6 +100,13 @@ namespace CasaDaVideira.Model.Database.Model
                     m.Inverse(true);
                 },
                 r => r.OneToMany());
+                Bag<BuscaRealizada>(x => x.BuscaRealizada, m =>
+                        {
+                            m.Cascade(Cascade.All);
+                            m.Key(k => k.Column("idUsuario"));
+                            m.Lazy(CollectionLazy.NoLazy);
+                            m.Inverse(true);
+                        },r => r.OneToMany());
             }
         }
     }
