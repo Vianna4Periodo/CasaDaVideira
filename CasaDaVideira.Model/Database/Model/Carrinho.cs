@@ -30,6 +30,9 @@ namespace CasaDaVideira.Model.Database.Model
                 m.Generator(Generators.Guid);
                 m.Column("idCarrinho");
             });
+            Property(x => x.Ativo, m => m.NotNullable(true));
+            Property(m => m.CreatedAt);
+            Property(m => m.UpdatedAt);
             Bag<Produto>(x => x.Produtos, 
                 m =>{
                         m.Table("Carrinho_has_Produtos");
@@ -43,9 +46,10 @@ namespace CasaDaVideira.Model.Database.Model
             ManyToOne(x => x.Usuario, m =>
                 {
                     m.Column("idUsuario");
+                    m.Cascade(Cascade.All);
                 });
-            Property(m => m.CreatedAt);
-            Property(m => m.UpdatedAt);
+
+            
         }
     }
 }

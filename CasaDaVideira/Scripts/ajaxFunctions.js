@@ -9,6 +9,11 @@
         "extendedTimeOut": "1000",
     }
 }
+
+function exibirModalDetalhesCliente() {
+    $("#modalDetalheUsuario").modal("show");
+}
+
 function refresh() {
     window.location.reload();
 }

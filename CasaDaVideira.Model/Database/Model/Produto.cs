@@ -10,8 +10,7 @@ namespace CasaDaVideira.Model.Database.Model
     public class Produto : EntityBase
     {
         private double preco;
-        public virtual string Nome { get; set; }
-        public virtual string DescricaoResumida { get; set; }
+        public virtual string Nome { get; set; }       
         public virtual string DescricaoCompleta { get; set; }
         public virtual double Peso { get; set; }
         public virtual int Qtd { get; set; }
@@ -19,6 +18,7 @@ namespace CasaDaVideira.Model.Database.Model
         public virtual Categoria Categoria { get; set; }
         public virtual bool Oferta { get; set; }
         public virtual int Classificacao { get; set; }
+        public virtual int QtdRating { get; set; }
         public virtual IList<Imagem>  Imagens { get; set; }
 
         public virtual IList<Carrinho> Carrinhos { get; set; }
@@ -41,6 +41,13 @@ namespace CasaDaVideira.Model.Database.Model
             preco = Preco;
             Imagens = new List<Imagem>();
         }
+
+        public virtual int Rating()
+        {
+            if (this.QtdRating == 0)
+                return 5;
+            return this.Classificacao / this.QtdRating;
+        }
     }
 
     public class ProdutoMap : ClassMapping<Produto>
@@ -54,8 +61,7 @@ namespace CasaDaVideira.Model.Database.Model
                 m.Column("idProduto");
             });
 
-            Property(x => x.Nome);
-            Property(x => x.DescricaoResumida);
+            Property(x => x.Nome);            
             Property(x => x.DescricaoCompleta);
             Property(x => x.Peso);
             Property(x => x.Preco);
@@ -63,6 +69,7 @@ namespace CasaDaVideira.Model.Database.Model
             Property(x => x.PrecoAntigo);
             Property(x => x.Oferta);
             Property(x => x.Classificacao);
+            Property(x => x.QtdRating);
             Property(x => x.Ativo, m => m.NotNullable(true));
             Property(m => m.CreatedAt);
             Property(m => m.UpdatedAt);

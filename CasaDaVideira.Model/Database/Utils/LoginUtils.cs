@@ -32,8 +32,13 @@ namespace CasaDaVideira.Model.Database.Utils
             try
             {
                 var usuario = DbConfig.Instance.UsuarioRepository.Buscar(login, senha);
-
                 Usuario = usuario ?? throw new Exception("Usuario não encontrado!");
+                if (!usuario.Admin)
+                {
+                    usuario.Carrinho = new Carrinho() { Usuario = usuario };
+                    DbConfig.Instance.UsuarioRepository.Update(usuario);
+                }
+               
 
                 FormsAuthentication.SetAuthCookie(usuario.Email, true);
 
@@ -49,6 +54,10 @@ namespace CasaDaVideira.Model.Database.Utils
         {
             try
             {
+                if (!Usuario.Admin)
+                {                 
+                    Usuario.Carrinho.Ativo = false;                    
+                }
                 Usuario.UltimoAcesso = DateTime.Now;
                 DbConfig.Instance.UsuarioRepository.SaveOrUpdate(Usuario);
                 Usuario = null;

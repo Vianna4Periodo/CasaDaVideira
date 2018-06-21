@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\Model\BuscaRealizada.cs" />
     <Compile Include="Database\Model\Carrinho.cs" />
     <Compile Include="Database\Model\Categoria.cs" />
     <Compile Include="Database\Model\Endereco.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Database\Model\Produto.cs" />
     <Compile Include="Database\Model\Telefone.cs" />
     <Compile Include="Database\Model\Usuario.cs" />
+    <Compile Include="Database\Repository\BuscaRealizadaRepository.cs" />
     <Compile Include="Database\Repository\CarrinhoRepository.cs" />
     <Compile Include="Database\Repository\CategoriaRepository.cs" />
     <Compile Include="Database\Repository\EnderecoRepository.cs" />

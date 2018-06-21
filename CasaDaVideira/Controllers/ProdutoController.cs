@@ -49,7 +49,6 @@ namespace CasaDaVideira.Controllers
             p.Categoria = produto.Categoria;
             p.Classificacao = produto.Classificacao;
             p.DescricaoCompleta = produto.DescricaoCompleta;
-            p.DescricaoResumida = produto.DescricaoResumida;
             p.Imagens = produto.Imagens;
             p.Nome = produto.Nome;
             p.Oferta = produto.Oferta;
@@ -97,7 +96,7 @@ namespace CasaDaVideira.Controllers
             
             DbConfig.Instance.ProdutoRepository.Save(prod);
             //return View("Telefones");
-            return RedirectToAction("Index");
+            return RedirectToAction("Listar");
         }
         
         public PartialViewResult AddImagem(Guid idProduto)
@@ -134,8 +133,31 @@ namespace CasaDaVideira.Controllers
             // redirect back to the index action to show the form once again
             return RedirectToAction("Index");
         }
+
+        public ActionResult RateProduto(int rating, Guid idProduto)
+        {            
+            var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
+            
+            produto.Classificacao += rating;                                    
+            produto.QtdRating++;
+
+            DbConfig.Instance.ProdutoRepository.Update(produto);
+            return View("DetalheProduto", produto);
+        }
+        public ActionResult Comprar(object obj)
+        {
+            return RedirectToAction("Index");
+        }
         public ActionResult BuscarProduto(string search)
         {
+            var user = LoginUtils.Usuario;
+            var br = new BuscaRealizada();
+            br.Busca = search;
+            br.Usuario = user;
+            user.BuscasRealizadas.Add(br);
+            DbConfig.Instance.UsuarioRepository.Update(user);            
+            
+            
             var prods = DbConfig.Instance.ProdutoRepository.FindByName(search);
             ViewBag.Categorias = DbConfig.Instance.CategoriaRepository.FindAll();
             var qtdProdutos = DbConfig.Instance.ProdutoRepository.CountProdutos();
@@ -153,5 +175,19 @@ namespace CasaDaVideira.Controllers
             var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
             return View(produto);
         }        
+
+        public PartialViewResult AddProduto(Guid idCarrinho, Guid idProduto)
+        {
+            var carrinho = DbConfig.Instance.CarrinhoRepository.FindFirstById(idCarrinho);
+            var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
+            if(produto.Qtd > 0)
+            {
+                carrinho.Produtos.Add(produto);
+                produto.Qtd--;
+                DbConfig.Instance.ProdutoRepository.Update(produto);
+            }
+            DbConfig.Instance.CarrinhoRepository.Update(carrinho);
+            return PartialView("_ProdutosPaginados", DbConfig.Instance.ProdutoRepository.FindAll());
+        }
     }
 }
