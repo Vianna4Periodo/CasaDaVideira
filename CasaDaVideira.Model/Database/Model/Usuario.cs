@@ -35,13 +35,29 @@ namespace CasaDaVideira.Model.Database.Model
         {
             this.Telefones = new List<Telefone>();
             this.Enderecos = new List<Endereco>();
-            this.BuscasRealizadas = new List<BuscaRealizada>();
+            this.BuscasRealizadas = new List<BuscaRealizada>();            
         }
 
         public virtual bool respondeuPesquisa()
         {
             var respondeu = DbConfig.Instance.PesquisaRepository.UsuarioJaRespondeu(this.Id);
             return respondeu;
+        }
+
+        public virtual int? idade()
+        {
+            if(DtNascimento.Year > 1)
+            {
+                
+                var idade = DateTime.Now.Year - DtNascimento.Year;
+                if (DateTime.Now.Month < DtNascimento.Month)
+                    idade--;
+                return idade;
+            }
+            else
+            {
+                return null;
+            }
         }
         public class UsuarioMap : ClassMapping<Usuario>
         {
@@ -54,9 +70,14 @@ namespace CasaDaVideira.Model.Database.Model
                     m.Column("idUsuario");
                 });
 
+                Property(x => x.Ativo, m => m.NotNullable(true));
+                Property(m => m.CreatedAt);
+                Property(m => m.UpdatedAt);
+
                 Property(x => x.Email, m =>
                 {
                     m.NotNullable(true);
+                    m.Unique(true);
                 });
                 Property(x => x.Senha, m =>
                 {
@@ -73,6 +94,7 @@ namespace CasaDaVideira.Model.Database.Model
                 Property(x => x.Cpf, m =>
                 {
                     m.NotNullable(true);
+                    m.Unique(true);
                 });
                 Property(x => x.Pontos);
                 Property(x => x.Admin, m =>
@@ -89,10 +111,10 @@ namespace CasaDaVideira.Model.Database.Model
                 {
                     m.Type(NHibernateUtil.Date);
                     m.NotNullable(false);
-                });
-                Property(x => x.Ativo, m => m.NotNullable(true));
-                Property(m => m.CreatedAt);
-                Property(m => m.UpdatedAt);
+                });               
+
+                OneToOne(x => x.Pesquisa, x => x.Cascade(Cascade.All));
+
                 Bag<Telefone>(x => x.Telefones, m =>
                 {
                     m.Cascade(Cascade.All);

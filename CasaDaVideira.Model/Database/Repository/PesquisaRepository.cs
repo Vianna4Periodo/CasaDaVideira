@@ -20,5 +20,10 @@ namespace CasaDaVideira.Model.Database.Repository
             var jarespondeu = this.Session.Query<Pesquisa>().FirstOrDefault(f => f.Usuario.Id == idUsuario);
             return jarespondeu != null ? true : false;
         }
+
+        public Pesquisa FindByUserId(Guid id)
+        {
+            return this.Session.Query<Pesquisa>().FirstOrDefault(f => f.Usuario.Id == id);
+        }
     }
 }

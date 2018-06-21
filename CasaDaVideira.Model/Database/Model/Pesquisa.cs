@@ -27,17 +27,15 @@ namespace CasaDaVideira.Model.Database.Model
                 m.Generator(Generators.Guid);
                 m.Column("idPesquisa");
             });
+            Property(x => x.Ativo, m => m.NotNullable(true));
+            Property(m => m.CreatedAt);
+            Property(m => m.UpdatedAt);
 
             Property(x => x.CostumaFazerComprasPelaInternet);
             Property(x => x.SePreocupaEmAdquirirAlimentosSemAgrotoxicos);
             Property(x => x.Comentario);
-            ManyToOne(x => x.Usuario, m =>
-            {
-                m.Column("idUsuario");
-            });
-            Property(x => x.Ativo, m => m.NotNullable(true));
-            Property(m => m.CreatedAt);
-            Property(m => m.UpdatedAt);
+
+            ManyToOne(x => x.Usuario, x => { x.Column("idUsuario"); });
         }
     }
 }

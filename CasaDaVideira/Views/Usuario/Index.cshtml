@@ -9,10 +9,7 @@
 
             <th>
                 @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Senha)
-            </th>
+            </th>           
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
@@ -21,10 +18,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cpf)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DtNascimento)
-            </th>
+            </th>           
             <th></th>
         </tr>
 
@@ -34,10 +28,7 @@
 
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Senha)
-                </td>
+                </td>                
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
@@ -46,14 +37,16 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Cpf)
-                </td>
+                </td>                
                 <td>
-                    @Html.DisplayFor(modelItem => item.DtNascimento)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "EditUser", new { idUsuario = item.Id }) |
-                    @Html.ActionLink("Detalhes", "DetailsUser", new { idUsuario = item.Id }) |
-                    @Html.ActionLink("Apagar", "DeleteUser", new { idUsuario = item.Id })
+                    <a data-ajax="true"
+                       data-ajax-loading="#loadAjax"
+                       data-ajax-method="post"
+                       data-ajax-mode="replace"
+                       data-ajax-success="exibirModalDetalhesCliente"
+                       data-ajax-update="#modaldiv"
+                       href="@Url.Action("DetailsUser", "Usuario", new { idUsuario = item.Id, info = true})"
+                       class="btn btn-info">Detalhes</a>                    
                 </td>
             </tr>
         }

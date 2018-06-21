@@ -77,11 +77,11 @@ namespace CasaDaVideira.Controllers
 
         }
 
-        public ActionResult DetailsUser()
+        public PartialViewResult DetailsUser(Guid idUsuario)
         {
-            var user = LoginUtils.Usuario;
-
-            return View(user);
+            var user = DbConfig.Instance.UsuarioRepository.FindFirstById(idUsuario);
+            ViewBag.Pesquisa = DbConfig.Instance.PesquisaRepository.FindByUserId(user.Id);
+            return PartialView(user);
         }
 
         public PartialViewResult GravarUsuario(Usuario user)
@@ -265,10 +265,10 @@ namespace CasaDaVideira.Controllers
         public PartialViewResult GravarPesquisa(Pesquisa pesquisa)
         {
             var usuario = LoginUtils.Usuario;
-            usuario.Pontos += 10;
-            DbConfig.Instance.UsuarioRepository.Update(usuario);
             pesquisa.Usuario = usuario;
-            DbConfig.Instance.PesquisaRepository.SaveOrUpdate(pesquisa);        
+            usuario.Pontos += 10;
+            usuario.Pesquisa = pesquisa;
+            DbConfig.Instance.UsuarioRepository.Update(usuario);
             return PartialView("_LoginMenu");
         }
         public PartialViewResult CadastraAdmin(string email, string senha)

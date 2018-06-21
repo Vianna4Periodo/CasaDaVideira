@@ -49,7 +49,6 @@ namespace CasaDaVideira.Controllers
             p.Categoria = produto.Categoria;
             p.Classificacao = produto.Classificacao;
             p.DescricaoCompleta = produto.DescricaoCompleta;
-            p.DescricaoResumida = produto.DescricaoResumida;
             p.Imagens = produto.Imagens;
             p.Nome = produto.Nome;
             p.Oferta = produto.Oferta;
