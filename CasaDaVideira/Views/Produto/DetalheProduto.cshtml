@@ -13,23 +13,23 @@
                     <form action="/Produto/RateProduto" method="post">
                         <input type="hidden" name="idProduto" , value="@Model.Id" />
                         <span class="starRating">
-                            <input id="rating5" @if (Model.Rating() >= 5){ Write("checked = 'true'"); }
+                            <input id="rating5" @if (Model.Rating() >= 5) { Write("checked = 'true'"); }
                                    type="radio" name="rating" value="5" onclick="form.submit()">
                             <label for="rating5">5</label>
-                            <input id="rating4"  @if (Model.Rating() >= 4 && Model.Rating()<5){ Write("checked = 'true'"); }
+                            <input id="rating4" @if (Model.Rating() >= 4 && Model.Rating() < 5) { Write("checked = 'true'"); }
                                    type="radio" name="rating" value="4" onclick="form.submit()">
                             <label for="rating4">4</label>
-                            <input id="rating3" @if (Model.Rating() >= 3 && Model.Rating()<4){ Write("checked = 'true'"); } 
+                            <input id="rating3" @if (Model.Rating() >= 3 && Model.Rating() < 4) { Write("checked = 'true'"); }
                                    type="radio" name="rating" value="3" onclick="form.submit()">
                             <label for="rating3">3</label>
-                            <input id="rating2" @if (Model.Rating() >= 2 && Model.Rating()<3){ Write("checked = 'true'"); } 
+                            <input id="rating2" @if (Model.Rating() >= 2 && Model.Rating() < 3) { Write("checked = 'true'"); }
                                    type="radio" name="rating" value="2" onclick="form.submit()">
                             <label for="rating2">2</label>
-                            <input id="rating1" @if (Model.Rating() >= 1 && Model.Rating()<2){Write("checked = 'true'");} 
+                            <input id="rating1" @if (Model.Rating() >= 1 && Model.Rating() < 2) { Write("checked = 'true'"); }
                                    type="radio" name="rating" value="1" onclick="form.submit()">
                             <label for="rating1">1</label>
                         </span>
-                    </form>                      
+                    </form>
                 </div>
                 <div class="w3agile_description">
                     <h4>Descrição :</h4>
@@ -45,21 +45,22 @@
                         </h4>
                     </div>
                     <div class="snipcart-details agileinfo_single_right_details">
-                        <form action="#" method="post">
-                            <fieldset>
-                                <input type="hidden" name="cmd" value="_cart">
-                                <input type="hidden" name="add" value="1">
-                                <input type="hidden" name="business" value=" ">
-                                <input type="hidden" name="item_name" value="@Model.Nome">
-                                <input type="hidden" name="amount" value="@Model.Preco">
-                                @if (Model.Oferta && Model.PrecoAntigo>Model.Preco)
-                                {<input type="hidden" name="discount_amount" value="@Model.PrecoAntigo-@Model.Preco">}
-                                    <input type="hidden" name="currency_code" value="BRL">
-                                    <input type="hidden" name="return" value=" ">
-                                    <input type="hidden" name="cancel_return" value=" ">
-                                    <input type="submit" name="submit" value="Comprar" class="button">
-                                </fieldset>
-                        </form>
+                       <form action="#" method="post">
+                        <fieldset>
+                            <input type="hidden" name="cmd" value="_cart">
+                            <input type="hidden" name="add" value="1">
+                            <input type="hidden" name="idCarrinho" value="">
+                            <input type="hidden" name="item_name" value="@Model.Nome">
+                            <input type="hidden" name="idProduto" value="@Model.Id">
+                            <input type="hidden" name="amount" value="@Model.Preco">
+                            @if (Model.Oferta && Model.PrecoAntigo > Model.Preco)
+                            {<input type="hidden" name="discount_amount" value="@Model.PrecoAntigo-@Model.Preco">}
+                            <input type="hidden" name="currency_code" value="BRL">
+                            <input type="hidden" name="return" value=" ">
+                            <input type="hidden" name="cancel_return" value=" ">
+                            <input type="submit" name="submit" value="Comprar" class="button">
+                        </fieldset>
+                       </form>
                     </div>
                 </div>
             </div>

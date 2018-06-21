@@ -114,6 +114,7 @@ namespace CasaDaVideira.Model.Database.Model
                 });               
 
                 OneToOne(x => x.Pesquisa, x => x.Cascade(Cascade.All));
+                OneToOne(x => x.Carrinho, x => x.Cascade(Cascade.All));
 
                 Bag<Telefone>(x => x.Telefones, m =>
                 {

@@ -46,7 +46,9 @@ namespace CasaDaVideira.Model.Database.Model
             ManyToOne(x => x.Usuario, m =>
                 {
                     m.Column("idUsuario");
+                    m.Cascade(Cascade.All);
                 });
+
             
         }
     }

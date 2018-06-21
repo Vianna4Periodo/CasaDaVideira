@@ -9,7 +9,7 @@
     <table class="table">
         <tr>
             <th> @Html.DisplayNameFor(model => model.Nome)</th>
-            <th>@Html.DisplayNameFor(model => model.DescricaoResumida)</th>
+            <th>@Html.DisplayNameFor(model => model.DescricaoCompleta)</th>
             <th> @Html.DisplayNameFor(model => model.Preco)</th>
             <th>@Html.DisplayNameFor(model => model.Qtd)</th>
             <th></th>
@@ -19,7 +19,7 @@
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                <td>@Html.DisplayFor(modelItem => item.DescricaoResumida)</td>
+                <td>@Html.DisplayFor(modelItem => item.DescricaoCompleta)</td>
                 <td>@Html.DisplayFor(modelItem => item.Preco)</td>
                 <td>@Html.DisplayFor(modelItem => item.Qtd)</td>
                 @if (usuario != null && usuario.Admin)

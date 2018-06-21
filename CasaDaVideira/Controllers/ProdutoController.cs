@@ -96,7 +96,7 @@ namespace CasaDaVideira.Controllers
             
             DbConfig.Instance.ProdutoRepository.Save(prod);
             //return View("Telefones");
-            return RedirectToAction("Index");
+            return RedirectToAction("Listar");
         }
         
         public PartialViewResult AddImagem(Guid idProduto)
@@ -144,7 +144,10 @@ namespace CasaDaVideira.Controllers
             DbConfig.Instance.ProdutoRepository.Update(produto);
             return View("DetalheProduto", produto);
         }
-
+        public ActionResult Comprar(object obj)
+        {
+            return RedirectToAction("Index");
+        }
         public ActionResult BuscarProduto(string search)
         {
             var user = LoginUtils.Usuario;
@@ -172,5 +175,19 @@ namespace CasaDaVideira.Controllers
             var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
             return View(produto);
         }        
+
+        public PartialViewResult AddProduto(Guid idCarrinho, Guid idProduto)
+        {
+            var carrinho = DbConfig.Instance.CarrinhoRepository.FindFirstById(idCarrinho);
+            var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
+            if(produto.Qtd > 0)
+            {
+                carrinho.Produtos.Add(produto);
+                produto.Qtd--;
+                DbConfig.Instance.ProdutoRepository.Update(produto);
+            }
+            DbConfig.Instance.CarrinhoRepository.Update(carrinho);
+            return PartialView("_ProdutosPaginados", DbConfig.Instance.ProdutoRepository.FindAll());
+        }
     }
 }

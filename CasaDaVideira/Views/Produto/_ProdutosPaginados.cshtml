@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CasaDaVideira.Model.Database.Model.Produto>
 
 @using CasaDaVideira.Model.Database.Model
-@{ 
+@{     
     List<Produto> produtos = (List<Produto>)Model;
 }
 
@@ -24,26 +24,30 @@
                             <figure>
                                 <div class="snipcart-item block">
                                     <div class="snipcart-thumb">
-                                        @if (produtos[i].Imagens.Count > 0)
-                                        {
-                                            <a href='@Url.Action("DetalheProduto", "Produto",  new { idProduto = produtos[i].Id})'>
+                                        <a href='@Url.Action("DetalheProduto", "Produto",  new { idProduto = produtos[i].Id})'>
+                                            @if (produtos[i].Imagens.Count > 0)
+                                            {
+
                                                 <img title=" " alt=" " src="@produtos[i].Imagens[0].Caminho" width="150" height="150">
-                                            </a>                                            
-                                        }
-                                        else
-                                        {
-                                            <a href="#"><img title="" alt="" src="" /></a>
-                                        }<p>@produtos[i].Nome</p>
-                                         <h4>R$@produtos[i].Preco @if (produtos[i].Oferta && produtos[i].PrecoAntigo > produtos[i].Preco)
-                                         {<span> R$@produtos[i].PrecoAntigo</span>}</h4>
+
+                                            }
+                                            else
+                                            {
+                                            }<p>@produtos[i].Nome</p>
+                                        </a>
+                                        <h4>
+                                            R$@produtos[i].Preco @if (produtos[i].Oferta && produtos[i].PrecoAntigo > produtos[i].Preco)
+                                            {<span> R$@produtos[i].PrecoAntigo</span>}
+                                        </h4>
                                     </div>
                                     <div class="snipcart-details top_brand_home_details">
                                         <form action="#" method="post">
                                             <fieldset>
                                                 <input type="hidden" name="cmd" value="_cart">
                                                 <input type="hidden" name="add" value="1">
-                                                <input type="hidden" name="business" value=" ">
+                                                <input type="hidden" name="idCarrinho" value="">
                                                 <input type="hidden" name="item_name" value="@produtos[i].Nome">
+                                                <input type="hidden" name="idProduto" value="@produtos[i].Id;">
                                                 <input type="hidden" name="amount" value="@produtos[i].Preco">
                                                 @if (produtos[i].Oferta && produtos[i].PrecoAntigo > produtos[i].Preco)
                                                 {<input type="hidden" name="discount_amount" value="@produtos[i].PrecoAntigo-@produtos[i].Preco">}
@@ -52,7 +56,7 @@
                                                 <input type="hidden" name="cancel_return" value=" ">
                                                 <input type="submit" name="submit" value="Comprar" class="button">
                                             </fieldset>
-                                        </form>
+                                       </form>
                                     </div>
                                 </div>
                             </figure>

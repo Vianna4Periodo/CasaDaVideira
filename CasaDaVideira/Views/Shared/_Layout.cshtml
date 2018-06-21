@@ -63,7 +63,7 @@
     <div class="agileits_header">
         <div class="container">
             <div class="w3l_offers">
-                <p>SALE UP TO 70% OFF. USE CODE "SALE70%" . <a href="products.html">SHOP NOW</a></p>
+                <p>Diversos produtos em promoção . <a href=@Url.Action("Index", "Produto")>Compre já!</a></p>
             </div>
             <div class="agile-login">
                 <ul id="loginMenu">
@@ -243,8 +243,10 @@
     <script src="~/Scripts/minicart.min.js"></script>
     <script>
         // Mini Cart
+        var form = $("#PPMiniCart form");
+        console.log(form);
         paypal.minicart.render({
-            action: '#'
+            action: '/Produto/Comprar'            
         });
 
         if (~window.location.search.indexOf('reset=true')) {
@@ -265,6 +267,5 @@
         });
     </script>
     <!-- //main slider-banner -->
-
 </body>
 </html>
