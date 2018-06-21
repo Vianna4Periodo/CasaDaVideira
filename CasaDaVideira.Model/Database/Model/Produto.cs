@@ -19,6 +19,7 @@ namespace CasaDaVideira.Model.Database.Model
         public virtual Categoria Categoria { get; set; }
         public virtual bool Oferta { get; set; }
         public virtual int Classificacao { get; set; }
+        public virtual int QtdRating { get; set; }
         public virtual IList<Imagem>  Imagens { get; set; }
 
         public virtual IList<Carrinho> Carrinhos { get; set; }
@@ -40,6 +41,11 @@ namespace CasaDaVideira.Model.Database.Model
         {
             preco = Preco;
             Imagens = new List<Imagem>();
+        }
+
+        public virtual int Rating()
+        {
+            return this.Classificacao / this.QtdRating;
         }
     }
 
@@ -63,6 +69,7 @@ namespace CasaDaVideira.Model.Database.Model
             Property(x => x.PrecoAntigo);
             Property(x => x.Oferta);
             Property(x => x.Classificacao);
+            Property(x => x.QtdRating);
             Property(x => x.Ativo, m => m.NotNullable(true));
             Property(m => m.CreatedAt);
             Property(m => m.UpdatedAt);

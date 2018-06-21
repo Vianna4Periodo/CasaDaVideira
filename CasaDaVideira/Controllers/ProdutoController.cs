@@ -134,6 +134,18 @@ namespace CasaDaVideira.Controllers
             // redirect back to the index action to show the form once again
             return RedirectToAction("Index");
         }
+
+        public ActionResult RateProduto(int rating, Guid idProduto)
+        {            
+            var produto = DbConfig.Instance.ProdutoRepository.FindFirstById(idProduto);
+            
+            produto.Classificacao += rating;                                    
+            produto.QtdRating++;
+
+            DbConfig.Instance.ProdutoRepository.Update(produto);
+            return View("DetalheProduto", produto);
+        }
+
         public ActionResult BuscarProduto(string search)
         {
             var user = LoginUtils.Usuario;
@@ -141,8 +153,8 @@ namespace CasaDaVideira.Controllers
             br.Busca = search;
             br.Usuario = user;
             user.BuscasRealizadas.Add(br);
-            DbConfig.Instance.BuscaRealizadaRepository.Save(br);
-            DbConfig.Instance.UsuarioRepository.Update(user);
+            DbConfig.Instance.UsuarioRepository.Update(user);            
+            
             
             var prods = DbConfig.Instance.ProdutoRepository.FindByName(search);
             ViewBag.Categorias = DbConfig.Instance.CategoriaRepository.FindAll();
